@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "AdSwapper 1",
+  "version": "1.0",
+  "description": "Replace ads with a any picture.",
+  "permissions": ["tabs", "storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "public/icon16.png",
+    "48": "public/icon48.png",
+    "128": "public/icon128.png"
+  },
+  "host_permissions": ["http://*/*", "https://*/*"]
+}
