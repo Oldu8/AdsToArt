@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toggle.addEventListener("change", (event) => {
     const isChecked = event.target.checked;
+    console.log("isChecked :", isChecked);
     chrome.storage.sync.set({ enabled: isChecked });
   });
 });
