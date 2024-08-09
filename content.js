@@ -39,13 +39,20 @@ function findAds() {
 function replaceAd(ad) {
   const parentNode = ad.parentNode;
   if (parentNode) {
+    const adWidth = ad.offsetWidth;
+    const adHeight = ad.offsetHeight;
+
     const newSpot = document.createElement("img");
     newSpot.src = otherImg;
     newSpot.alt = "AdsToArt Image";
-    newSpot.style.minWidth = "100px";
-    newSpot.style.width = "160px";
-    newSpot.style.minHeight = "200px";
-    newSpot.style.height = "160px";
+
+    // Set the size of the replacement image to match the original ad, preserving aspect ratio
+    newSpot.style.width = `${adWidth}px`;
+    newSpot.style.height = `${adHeight}px`;
+    newSpot.style.objectFit = "contain"; // Preserve aspect ratio, image will not be stretched
+    newSpot.style.maxWidth = "100%";
+    newSpot.style.maxHeight = "100%";
+
     parentNode.appendChild(newSpot);
     ad.remove(); // Remove the original ad
   }
