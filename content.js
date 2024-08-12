@@ -10,9 +10,6 @@ const adSelectors = [
   // Add more selectors as needed
 ];
 
-// const otherImg =
-//   "https://media.licdn.com/dms/image/C4D03AQGk4-rslwAaUg/profile-displayphoto-shrink_800_800/0/1566815244907?e=1728518400&v=beta&t=g2-WaR1q3J6h0ahswU3CMo2LOdvKayhlWSgBiJ9y1vc";
-
 const imageMap = {
   "1:1": chrome.runtime.getURL("images/square.png"),
   "4:3": chrome.runtime.getURL("images/rectangle.png"),
@@ -31,29 +28,6 @@ function getRatio(width, height) {
   if (Math.abs(ratio - 4 / 1) < 0.1) return "4:1";
   return "default"; // Fallback ratio
 }
-// function findAds() {
-//   const selectorString = adSelectors.join(", ");
-//   return document.querySelectorAll(selectorString);
-// }
-
-// function replaceAds() {
-//   const ads = findAds();
-
-//   console.log(ads);
-
-//   ads.forEach((ad) => {
-//     console.log(ad.tagName);
-//     const parentNode = ad.parentNode;
-//     const newSpot = document.createElement("img");
-//     newSpot.src = otherImg;
-//     newSpot.alt = "AdsToArt Image";
-//     newSpot.style.minWidth = "100px";
-//     newSpot.style.width = "160px";
-//     newSpot.style.minHeight = "200px";
-//     newSpot.style.height = "160px";
-//     parentNode.appendChild(newSpot);
-//   });
-// }
 
 function replaceAd(ad) {
   const parentNode = ad.parentNode;
