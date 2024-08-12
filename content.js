@@ -4,6 +4,7 @@ const adSelectors = [
   ".adsbygoogle",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
+  'iframe[id*="google_ads_iframe_"]',
   // Add more selectors as needed
 ];
 
