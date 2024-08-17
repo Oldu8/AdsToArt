@@ -7,7 +7,6 @@ const adSelectors = [
   'iframe[id*="google_ads_iframe_"]',
   'iframe[id*="google_ad"]',
   'iframe[id*="aswift"]',
-  // Add more selectors as needed
 ];
 
 const imageMap = {
@@ -16,7 +15,7 @@ const imageMap = {
   "16:9": chrome.runtime.getURL("images/wide.png"),
   "1:3": chrome.runtime.getURL("images/skyscraper.png"),
   "4:1": chrome.runtime.getURL("images/leaderboard.png"),
-  default: chrome.runtime.getURL("images/default.png"), // Use default image
+  default: chrome.runtime.getURL("images/default.png"),
 };
 
 function getRatio(width, height) {
