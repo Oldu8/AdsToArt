@@ -37,7 +37,10 @@ function replaceAd(ad) {
 
     const newImg = document.createElement("img");
     newImg.src = imageMap[ratio];
-    newImg.alt = "AdsToArt Image";
+    newImg.style.width = `${adWidth}px`;
+    newImg.style.height = `${adHeight}px`;
+    // newImg.alt = "AdsToArt Image";
+    newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
 
     // Set the size of the replacement image to match the original ad, preserving aspect ratio
     newImg.style.width = `${adWidth}px`;
