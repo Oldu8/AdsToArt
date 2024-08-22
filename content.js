@@ -6,8 +6,17 @@ const adSelectors = [
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
   'iframe[id*="google_ad"]',
-  'iframe[id*="aswift"]',
+  'iframe[id*="aswift_"]',
+  'iframe[name*="aswift"]',
+  "ins.adsbygoogle", // More specific
+  "div.adsbygoogle",
 ];
+function replaceAdsInShadowDOM(root) {
+  const shadowAdSelectors = adSelectors.join(", ");
+  const adsInShadow = root.querySelectorAll(shadowAdSelectors);
+
+  adsInShadow.forEach((ad) => replaceAd(ad));
+}
 
 const imageMap = {
   "1:1": chrome.runtime.getURL("images/square.png"),
@@ -64,7 +73,8 @@ function replaceAd(ad) {
     newImg.style.maxWidth = "100%";
     newImg.style.maxHeight = "100%";
 
-    ad.replaceWith(newImg); // Replace ad with new image
+    parentNode.appendChild(newSpot);
+    ad.remove();
   }
 }
 
