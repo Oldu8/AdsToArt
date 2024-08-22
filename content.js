@@ -2,15 +2,26 @@ const adSelectors = [
   "img[src*='googlesyndication.com']",
   "iframe[src*='googlesyndication.com']",
   ".adsbygoogle",
+  ".advertisement-block",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
   'iframe[id*="google_ad"]',
   'iframe[id*="aswift_"]',
+  'iframe[id*="phathome_"]',
   'iframe[name*="aswift"]',
-  "ins.adsbygoogle", // More specific
+  "ins.adsbygoogle",
   "div.adsbygoogle",
+  'div[id*="yandex"]',
+  'div[id*="div-gpt-ad"]',
+  "div.promo-block",
+  "iframe[src*='mobtrafmag']",
+  "a[href*='trafmag.com']",
+  "img[src*='trafmag']",
+  "div[id*='MarketGid']",
+  "[data-google-query-id]",
 ];
+
 function replaceAdsInShadowDOM(root) {
   const shadowAdSelectors = adSelectors.join(", ");
   const adsInShadow = root.querySelectorAll(shadowAdSelectors);
@@ -24,12 +35,12 @@ const imageMap = {
   "16:9": chrome.runtime.getURL("images/wide.png"),
   "1:3": chrome.runtime.getURL("images/skyscraper.png"),
   "4:1": chrome.runtime.getURL("images/leaderboard.png"),
-  "1:2": chrome.runtime.getURL("images/halfPage.png"),
-  default: chrome.runtime.getURL("images/default.png"),
+  "8:1": chrome.runtime.getURL("images/leaderboard.png"),
+  "1:2": chrome.runtime.getURL("images/half.png"),
+  default: chrome.runtime.getURL("images/half.png"),
 };
 
 function getRatio(width, height) {
-  // Calculate the aspect ratio
   const ratio = width / height;
 
   // Handle specific known standard ad sizes first
@@ -37,7 +48,10 @@ function getRatio(width, height) {
   if (width === 728 && height === 90) return "8:1"; // Leaderboard size
   if (width === 300 && height === 250) return "4:3"; // Medium rectangle
   if (width === 336 && height === 280) return "6:5"; // Large rectangle
-  if (width === 300 && height === 600) return "1:2"; // Half-page
+  if (width === 300 && height === 600) {
+    console.log("Half-page - zalypa blyad" + width + " " + height);
+    return "1:2"; // Half-page
+  } // Half-page
   if (width === 160 && height === 600) return "1:3"; // Wide skyscraper
   if (width === 320 && height === 100) return "3.2:1"; // Large mobile banner
 
@@ -63,17 +77,12 @@ function replaceAd(ad) {
     newImg.src = imageMap[ratio];
     newImg.style.width = `${adWidth}px`;
     newImg.style.height = `${adHeight}px`;
-    // newImg.alt = "AdsToArt Image";
     newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
-
-    // Set the size of the replacement image to match the original ad, preserving aspect ratio
-    newImg.style.width = `${adWidth}px`;
-    newImg.style.height = `${adHeight}px`;
     newImg.style.objectFit = "contain"; // Preserve aspect ratio, image will not be stretched
     newImg.style.maxWidth = "100%";
     newImg.style.maxHeight = "100%";
 
-    parentNode.appendChild(newSpot);
+    parentNode.appendChild(newImg);
     ad.remove();
   }
 }
@@ -94,6 +103,10 @@ function replaceAds() {
   });
 }
 
+function findAds() {
+  return document.querySelectorAll(adSelectors.join(", "));
+}
+
 function findAndReplaceAds() {
   const ads = findAds();
   ads.forEach(replaceAd);
@@ -105,10 +118,11 @@ function observeAds() {
       if (mutation.type === "childList") {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === 1) {
-            // Element node
             adSelectors.forEach((selector) => {
               if (node.matches(selector)) {
                 replaceAd(node);
+              } else if (node.shadowRoot) {
+                replaceAdsInShadowDOM(node.shadowRoot);
               } else {
                 const nestedAds = node.querySelectorAll(selector);
                 nestedAds.forEach(replaceAd);
