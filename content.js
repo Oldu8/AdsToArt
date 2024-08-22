@@ -37,7 +37,7 @@ const imageMap = {
   "4:1": chrome.runtime.getURL("images/leaderboard.png"),
   "8:1": chrome.runtime.getURL("images/leaderboard.png"),
   "1:2": chrome.runtime.getURL("images/half.png"),
-  default: chrome.runtime.getURL("images/half.png"),
+  default: chrome.runtime.getURL("images/default.png"),
 };
 
 function getRatio(width, height) {
