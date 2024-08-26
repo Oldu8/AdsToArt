@@ -3,7 +3,7 @@
   "name": "AdsToArt",
   "version": "1.0",
   "description": "Replace ads with a picture.",
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html"
   },
@@ -23,14 +23,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "images/square.png",
-        "images/rectangle.png",
-        "images/wide.png",
-        "images/skyscraper.png",
-        "images/leaderboard.png",
-        "images/default.png"
-      ],
+      "resources": ["images/set_blue/*", "images/set_green/*"],
       "matches": ["<all_urls>"]
     }
   ]

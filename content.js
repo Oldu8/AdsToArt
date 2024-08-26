@@ -22,11 +22,11 @@ const adSelectors = [
   "[data-google-query-id]",
 ];
 
-function replaceAdsInShadowDOM(root) {
+function replaceAdsInShadowDOM(root, setName) {
   const shadowAdSelectors = adSelectors.join(", ");
   const adsInShadow = root.querySelectorAll(shadowAdSelectors);
 
-  adsInShadow.forEach((ad) => replaceAd(ad));
+  adsInShadow.forEach((ad) => replaceAd(ad, setName));
 }
 
 const imageMap = {
@@ -44,6 +44,29 @@ const imageMap = {
   ratio_3_1: chrome.runtime.getURL("images/leaderboard.png"),
   default: chrome.runtime.getURL("images/default.png"),
 };
+
+function getImageURL(ratio, set) {
+  const name = getName(ratio);
+  const url = `images/${set}/${name}.png`;
+  console.log(url);
+  return chrome.runtime.getURL(url);
+}
+
+function getName(ratio) {
+  if (ratio === "ratio_1_1") return "square";
+  if (ratio === "ratio_4_3") return "rectangle";
+  if (ratio === "ratio_16_9") return "wide";
+  if (ratio === "ratio_1_3") return "skyscraper";
+  if (ratio === "ratio_4_1") return "leaderboard";
+  if (ratio === "ratio_8_1") return "leaderboard";
+  if (ratio === "ratio_10_1") return "leaderboard";
+  if (ratio === "ratio_3_2") return "rectangle";
+  if (ratio === "ratio_2_3") return "rectangle";
+  if (ratio === "half_page") return "half";
+  if (ratio === "ratio_2_1") return "wide";
+  if (ratio === "ratio_3_1") return "leaderboard";
+  return "default";
+}
 
 function getRatio(width, height) {
   const ratio = width / height;
@@ -72,17 +95,19 @@ function getRatio(width, height) {
   return "default";
 }
 
-function replaceAd(ad) {
+function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   if (parentNode) {
     const adWidth = ad.offsetWidth;
     const adHeight = ad.offsetHeight;
+    console.log(adWidth, adHeight);
     const ratio = getRatio(adWidth, adHeight);
 
     const newImg = document.createElement("img");
-    newImg.src = imageMap[ratio];
+    // newImg.src = imageMap[ratio];
+    newImg.src = getImageURL(ratio, setName);
     newImg.style.width = `${adWidth}px`;
-    newImg.style.height = `${adHeight}px`;
+    newImg.style.height = adHeight > 0 ? `${adHeight}px` : 250; // Ensure height is not zero
     newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
     newImg.style.objectFit = "contain"; // Preserve aspect ratio, image will not be stretched
     newImg.style.maxWidth = "100%";
@@ -93,32 +118,16 @@ function replaceAd(ad) {
   }
 }
 
-function replaceAds() {
-  const ads = findAds();
-
-  ads.forEach((ad) => {
-    const width = ad.clientWidth;
-    const height = ad.clientHeight;
-    const ratio = getRatio(width, height);
-    const newImg = document.createElement("img");
-    newImg.src = imageMap[ratio] || imageMap["default"];
-    newImg.style.width = `${width}px`;
-    newImg.style.height = `${height}px`;
-
-    ad.replaceWith(newImg);
-  });
-}
-
 function findAds() {
   return document.querySelectorAll(adSelectors.join(", "));
 }
 
-function findAndReplaceAds() {
+function findAndReplaceAds(setName) {
   const ads = findAds();
-  ads.forEach(replaceAd);
+  ads.forEach((i) => replaceAd(i, setName));
 }
 
-function observeAds() {
+function observeAds(setName) {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === "childList") {
@@ -126,12 +135,12 @@ function observeAds() {
           if (node.nodeType === 1) {
             adSelectors.forEach((selector) => {
               if (node.matches(selector)) {
-                replaceAd(node);
+                replaceAd(node, setName);
               } else if (node.shadowRoot) {
-                replaceAdsInShadowDOM(node.shadowRoot);
+                replaceAdsInShadowDOM(node.shadowRoot, setName);
               } else {
                 const nestedAds = node.querySelectorAll(selector);
-                nestedAds.forEach(replaceAd);
+                nestedAds.forEach((i) => replaceAd(i, setName));
               }
             });
           }
@@ -146,11 +155,14 @@ function observeAds() {
   });
 
   // Initial replacement
-  findAndReplaceAds();
+  findAndReplaceAds(setName);
 }
 
 chrome.storage.sync.get(["enabled"], (result) => {
   if (result.enabled) {
-    observeAds();
+    chrome.storage.sync.get(["selectedSet"], (res) => {
+      console.log(res.selectedSet);
+      observeAds(res.selectedSet);
+    });
   }
 });
