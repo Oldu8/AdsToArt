@@ -26,11 +26,19 @@
         <span class="toggle-label">Enable Ads Swap</span>
       </div>
       <div class="set-container">
-        <label for="set-select">Select Image Set:</label>
-        <select id="set-select">
-          <option value="set_green">Green Set</option>
-          <option value="set_blue" selected>Blue Set</option>
-        </select>
+        <label>Select Image Set:</label>
+        <div class="image-set-options">
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_green" />
+            <img src="/images/set_green/default.png" alt="Green Set" />
+            <span>Green Set</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_blue" checked />
+            <img src="/images/set_blue/default.png" alt="Blue Set" />
+            <span>Blue Set</span>
+          </label>
+        </div>
       </div>
       <script src="/src/popup.js"></script>
     </div>
