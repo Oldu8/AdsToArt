@@ -23,7 +23,11 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["images/set_blue/*", "images/set_green/*"],
+      "resources": [
+        "images/set_blue/*",
+        "images/set_green/*",
+        "images/set_flower/*"
+      ],
       "matches": ["<all_urls>"]
     }
   ]

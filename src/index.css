@@ -99,6 +99,9 @@ input:checked + .slider:before {
 .image-set-options {
   display: flex;
   justify-content: space-between;
+  row-gap: 10px;
+  column-gap: 10px;
+  flex-wrap: wrap;
   margin-top: 10px;
 }
 
@@ -114,14 +117,15 @@ input:checked + .slider:before {
 }
 
 .image-option img {
-  width: 100px; /* Adjust the size as needed */
+  width: 100px;
+  height: 100px;
   height: auto;
   border: 2px solid transparent;
   border-radius: 5px;
 }
 
 .image-option input[type="radio"]:checked + img {
-  border-color: #eeff00; /* Highlight color */
+  border-color: #ff5e00; /* Highlight color */
 }
 
 .image-option span {
