@@ -87,15 +87,22 @@ function replaceAd(ad, setName) {
     const name = getRatio(adWidth, adHeight);
 
     const newImg = document.createElement("img");
-    // newImg.src = imageMap[ratio];
-    // newImg.src = getImageURL(ratio, setName);
     newImg.src = getUrlForImage(name, setName);
-    newImg.style.width = `${adWidth}px`;
-    newImg.style.height = adHeight > 0 ? `${adHeight}px` : 250; // Ensure height is not zero
     newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
+    newImg.style.width = `${adWidth}px`;
+    newImg.style.height = adHeight > 0 ? `${adHeight}px` : "250px"; // Ensure height is not zero
     newImg.style.objectFit = "contain"; // Preserve aspect ratio, image will not be stretched
     newImg.style.maxWidth = "100%";
-    newImg.style.maxHeight = "100%";
+
+    // Set maxHeight based on the image's natural height once it is loaded
+    newImg.onload = function () {
+      const naturalHeight = newImg.naturalHeight;
+      const naturalWidth = newImg.naturalWidth;
+      const minWidth = Math.min(naturalWidth, naturalHeight);
+      newImg.style.maxHeight = `${naturalHeight}px`;
+      newImg.style.minWidth = `${minWidth}px`;
+      newImg.style.maxWidth = `${naturalWidth}px`;
+    };
 
     parentNode.appendChild(newImg);
     ad.remove();
