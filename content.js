@@ -2,6 +2,7 @@ const adSelectors = [
   "img[src*='googlesyndication.com']",
   "iframe[src*='googlesyndication.com']",
   ".adsbygoogle",
+  ".promotedlink ",
   ".advertisement-block",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
@@ -44,29 +45,6 @@ const imageMap = {
   ratio_3_1: chrome.runtime.getURL("images/leaderboard.png"),
   default: chrome.runtime.getURL("images/default.png"),
 };
-
-// function getImageURL(ratio, set) {
-//   const name = getName(ratio);
-//   const url = `images/${set}/${name}.png`;
-//   console.log(url);
-//   return chrome.runtime.getURL(url);
-// }
-
-// function getName(ratio) {
-//   if (ratio === "ratio_1_1") return "square";
-//   if (ratio === "ratio_4_3") return "rectangle";
-//   if (ratio === "ratio_16_9") return "wide";
-//   if (ratio === "ratio_1_3") return "skyscraper";
-//   if (ratio === "ratio_4_1") return "leaderboard";
-//   if (ratio === "ratio_8_1") return "leaderboard";
-//   if (ratio === "ratio_10_1") return "leaderboard";
-//   if (ratio === "ratio_3_2") return "rectangle";
-//   if (ratio === "ratio_2_3") return "rectangle";
-//   if (ratio === "half_page") return "half";
-//   if (ratio === "ratio_2_1") return "wide";
-//   if (ratio === "ratio_3_1") return "leaderboard";
-//   return "default";
-// }
 
 function getUrlForImage(name, setName) {
   const url = `images/${setName}/${name}.png`;
