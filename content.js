@@ -4,6 +4,8 @@ const adSelectors = [
   ".adsbygoogle",
   ".promotedlink ",
   ".advertisement-block",
+  ".top_banner_yand",
+  ".side_banner_yand",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
@@ -21,6 +23,10 @@ const adSelectors = [
   "img[src*='trafmag']",
   "div[id*='MarketGid']",
   "[data-google-query-id]",
+  "div[data-name='ad wrapper']",
+  "div[data-name='adWrapper']",
+  "div[data-name='adaptiveConstructorAd']",
+  "div[data-ad-id]",
 ];
 
 function replaceAdsInShadowDOM(root, setName) {
@@ -99,6 +105,7 @@ function replaceAd(ad, setName) {
       const naturalHeight = newImg.naturalHeight;
       const naturalWidth = newImg.naturalWidth;
       const minWidth = Math.min(naturalWidth, naturalHeight);
+      const minHeight = Math.min(naturalWidth, naturalHeight);
       newImg.style.maxHeight = `${naturalHeight}px`;
       newImg.style.minWidth = `${minWidth}px`;
       newImg.style.maxWidth = `${naturalWidth}px`;
