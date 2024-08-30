@@ -6,6 +6,12 @@ const adSelectors = [
   ".advertisement-block",
   ".top_banner_yand",
   ".side_banner_yand",
+  ".videoAdUiClickElement",
+  ".cm-vpaid-iframe",
+  "._cm-ad-active",
+  ".trc-content-sponsored",
+  "._cm-native-ad",
+  ".trc-content-sponsored",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
@@ -22,11 +28,16 @@ const adSelectors = [
   "a[href*='trafmag.com']",
   "img[src*='trafmag']",
   "div[id*='MarketGid']",
+  "div[id*='div-mps-ad*']",
   "[data-google-query-id]",
   "div[data-name='ad wrapper']",
   "div[data-name='adWrapper']",
   "div[data-name='adaptiveConstructorAd']",
   "div[data-ad-id]",
+  "div[data-confiant-id='CONFIANT_AD*']",
+  "aside[aria-label='advertisement']",
+  "a[href*='redirect.trackerado.com'] .thumbBlock",
+  "a[rel*='sponsored'] .thumbBlock",
 ];
 
 function replaceAdsInShadowDOM(root, setName) {
@@ -107,7 +118,7 @@ function replaceAd(ad, setName) {
       const minWidth = Math.min(naturalWidth, naturalHeight);
       const minHeight = Math.min(naturalWidth, naturalHeight);
       newImg.style.maxHeight = `${naturalHeight}px`;
-      newImg.style.minWidth = `${minWidth}px`;
+      newImg.style.minWidth = "100%";
       newImg.style.maxWidth = `${naturalWidth}px`;
     };
 
