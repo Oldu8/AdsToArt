@@ -38,6 +38,10 @@ const adSelectors = [
   "aside[aria-label='advertisement']",
   "a[href*='redirect.trackerado.com'] .thumbBlock",
   "a[rel*='sponsored'] .thumbBlock",
+  "iframe[src*='ads']",
+  "img[src*='cummerata.link*']",
+  "img[src*='oritoee*']",
+  "img[alt='ads']",
 ];
 
 function replaceAdsInShadowDOM(root, setName) {
