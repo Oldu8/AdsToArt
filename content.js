@@ -106,20 +106,36 @@ function replaceAd(ad, setName) {
     const newImg = document.createElement("img");
     newImg.src = getUrlForImage(name, setName);
     newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
-    newImg.style.width = `${adWidth}px`;
-    newImg.style.height = adHeight > 0 ? `${adHeight}px` : "250px"; // Ensure height is not zero
-    newImg.style.objectFit = "contain"; // Preserve aspect ratio, image will not be stretched
+
+    // Default image size settings
+    let imgWidth = adWidth;
+    let imgHeight = adHeight > 0 ? adHeight : 250;
+
+    // Get parent dimensions
+    const parentWidth = parentNode.offsetWidth;
+    const parentHeight = parentNode.offsetHeight;
+
+    // Check if parent is more than twice as large as the image
+    if (parentWidth >= imgWidth * 2 || parentHeight >= imgHeight * 2) {
+      imgWidth = parentWidth;
+      imgHeight = parentHeight;
+    }
+
+    // Apply styles
+    newImg.style.width = `${imgWidth}px`;
+    newImg.style.height = `${imgHeight}px`;
+    newImg.style.objectFit = "contain"; // Preserve aspect ratio
     newImg.style.maxWidth = "100%";
 
-    // Set maxHeight based on the image's natural height once it is loaded
     newImg.onload = function () {
       const naturalHeight = newImg.naturalHeight;
       const naturalWidth = newImg.naturalWidth;
-      const minWidth = Math.min(naturalWidth, naturalHeight);
-      const minHeight = Math.min(naturalWidth, naturalHeight);
-      newImg.style.maxHeight = `${naturalHeight}px`;
-      newImg.style.minWidth = "-webkit-fill-available";
-      newImg.style.maxWidth = `${naturalWidth}px`;
+
+      // Adjust maxHeight and maxWidth
+      newImg.style.maxHeight = `${Math.min(naturalHeight, parentHeight)}px`;
+      newImg.style.maxWidth = `${Math.min(naturalWidth, parentWidth)}px`;
+
+      newImg.style.overflow = "hidden";
     };
 
     parentNode.appendChild(newImg);
