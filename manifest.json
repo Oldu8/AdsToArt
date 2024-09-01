@@ -25,8 +25,8 @@
     {
       "resources": [
         "images/set_space/*",
-        "images/set_green/*",
-        "images/set_flower/*"
+        "images/set_flower/*",
+        "images/set_retro/*"
       ],
       "matches": ["<all_urls>"]
     }
