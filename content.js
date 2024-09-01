@@ -118,7 +118,7 @@ function replaceAd(ad, setName) {
       const minWidth = Math.min(naturalWidth, naturalHeight);
       const minHeight = Math.min(naturalWidth, naturalHeight);
       newImg.style.maxHeight = `${naturalHeight}px`;
-      newImg.style.minWidth = "100%";
+      newImg.style.minWidth = "-webkit-fill-available";
       newImg.style.maxWidth = `${naturalWidth}px`;
     };
 

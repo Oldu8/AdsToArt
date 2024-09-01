@@ -98,9 +98,10 @@ input:checked + .slider:before {
 
 .image-set-options {
   display: flex;
-  justify-content: space-between;
-  row-gap: 8px;
-  column-gap: 8px;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
+  column-gap: 45px;
   flex-wrap: wrap;
   margin-top: 8px;
 }
