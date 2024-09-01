@@ -102,6 +102,27 @@ function replaceAd(ad, setName) {
     const adHeight = ad.offsetHeight;
     console.log(adWidth, adHeight);
     const name = getRatio(adWidth, adHeight);
+    // Get parent dimensions
+    const parentWidth = parentNode.offsetWidth;
+    const parentHeight = parentNode.offsetHeight;
+
+    // console.log("parent:", parentWidth, parentHeight);
+    // console.log("art size:", adWidth, adHeight);
+    // console.log(
+    //   "should skip ?",
+    //   parentWidth < adWidth / 2,
+    //   parentHeight < adHeight / 2
+    // );
+    // console.log(parentNode);
+
+    if (parentWidth < adWidth / 2 || parentHeight < adHeight / 2) {
+      console.log("Skipping image replacement due to small size.");
+      return; // Skip the replacement
+    }
+    if (adWidth == 0 || adHeight == 0) {
+      console.log("Skipping image replacement due to small size.");
+      return; // Skip the replacement
+    }
 
     const newImg = document.createElement("img");
     newImg.src = getUrlForImage(name, setName);
@@ -110,10 +131,6 @@ function replaceAd(ad, setName) {
     // Default image size settings
     let imgWidth = adWidth;
     let imgHeight = adHeight > 0 ? adHeight : 250;
-
-    // Get parent dimensions
-    const parentWidth = parentNode.offsetWidth;
-    const parentHeight = parentNode.offsetHeight;
 
     // Check if parent is more than twice as large as the image
     if (parentWidth >= imgWidth * 2 || parentHeight >= imgHeight * 2) {
