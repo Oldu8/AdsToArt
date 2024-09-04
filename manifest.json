@@ -27,6 +27,7 @@
         "images/set_space/*",
         "images/set_flower/*",
         "images/set_retro/*",
+        "images/set_pixel/*",
         "images/set_city/*"
       ],
       "matches": ["<all_urls>"]
