@@ -42,6 +42,7 @@ const adSelectors = [
   "img[src*='cummerata.link*']",
   "img[src*='oritoee*']",
   "img[alt='ads']",
+  "div[data-name='adaptiveConstructorAd']",
 ];
 
 function replaceAdsInShadowDOM(root, setName) {
@@ -117,13 +118,13 @@ function replaceAd(ad, setName) {
     //   parentWidth < adWidth / 2,
     //   parentHeight < adHeight / 2
     // );
-    // console.log(parentNode);
+    console.log(parentNode);
 
-    if (parentWidth < adWidth / 2 || parentHeight < adHeight / 2) {
+    if (parentWidth < adWidth / 2) {
       console.log("Skipping image replacement due to small size.");
       return; // Skip the replacement
     }
-    if (adWidth == 0 || adHeight == 0) {
+    if (adWidth == 0) {
       console.log("Skipping image replacement due to small size.");
       return; // Skip the replacement
     }
