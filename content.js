@@ -107,20 +107,11 @@ function replaceAd(ad, setName) {
   if (parentNode) {
     const adWidth = ad.offsetWidth;
     const adHeight = ad.offsetHeight;
-    console.log(adWidth, adHeight);
+    // console.log(adWidth, adHeight);
     const name = getRatio(adWidth, adHeight);
     // Get parent dimensions
     const parentWidth = parentNode.offsetWidth;
     const parentHeight = parentNode.offsetHeight;
-
-    // console.log("parent:", parentWidth, parentHeight);
-    // console.log("art size:", adWidth, adHeight);
-    // console.log(
-    //   "should skip ?",
-    //   parentWidth < adWidth / 2,
-    //   parentHeight < adHeight / 2
-    // );
-    console.log(parentNode);
 
     if (parentWidth < adWidth / 2) {
       console.log("Skipping image replacement due to small size.");
@@ -171,12 +162,14 @@ function replaceAd(ad, setName) {
 
     const imageWrapper = document.createElement("div");
     imageWrapper.style.position = "relative";
-    imageWrapper.style.width = `${imgWidth}px`;
-    imageWrapper.style.height = `${imgHeight}px`;
-    imageWrapper.style.maxHeight = `${newImg.naturalHeight}px`;
-    imageWrapper.style.maxWidth = `${newImg.naturalWidth}px`;
+    // imageWrapper.style.width = `${imgWidth}px !important`;
+    imageWrapper.style.setProperty("width", "fit-content", "important");
+    imageWrapper.style.height = `${imgHeight}px !important`;
+    imageWrapper.style.maxHeight = `${newImg.naturalHeight}px !important`;
+    imageWrapper.style.maxWidth = `${newImg.naturalWidth}px !important`;
     imageWrapper.style.margin = "0 auto";
     imageWrapper.appendChild(newImg);
+
     imageWrapper.appendChild(closeButton);
 
     // Adjust the image size after loading
@@ -240,7 +233,6 @@ function observeAds(setName) {
 chrome.storage.sync.get(["enabled"], (result) => {
   if (result.enabled) {
     chrome.storage.sync.get(["selectedSet"], (res) => {
-      console.log(res.selectedSet);
       observeAds(res.selectedSet);
     });
   }
