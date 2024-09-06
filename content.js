@@ -42,6 +42,7 @@ const adSelectors = [
   "img[src*='cummerata.link*']",
   "img[src*='oritoee*']",
   "img[alt='ads']",
+  "img[alt='Advertisement']",
   "div[data-name='adaptiveConstructorAd']",
 ];
 
@@ -69,6 +70,7 @@ const imageMap = {
 };
 
 function getUrlForImage(name, setName) {
+  console.log(name, setName);
   const url = `images/${setName}/${name}.png`;
   return chrome.runtime.getURL(url);
 }
@@ -129,11 +131,11 @@ function replaceAd(ad, setName) {
       return; // Skip the replacement
     }
 
+    // Create new image element
     const newImg = document.createElement("img");
     newImg.src = getUrlForImage(name, setName);
     newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
 
-    // Default image size settings
     let imgWidth = adWidth;
     let imgHeight = adHeight > 0 ? adHeight : 250;
 
@@ -143,24 +145,54 @@ function replaceAd(ad, setName) {
       imgHeight = parentHeight;
     }
 
-    // Apply styles
+    // Apply styles to the image
     newImg.style.width = `${imgWidth}px`;
     newImg.style.height = `${imgHeight}px`;
-    newImg.style.objectFit = "contain"; // Preserve aspect ratio
+    newImg.style.objectFit = "contain";
     newImg.style.maxWidth = "100%";
+    newImg.style.position = "relative"; // Ensure proper positioning of the close button
 
+    // Create close button
+    const closeButton = document.createElement("span");
+    closeButton.innerHTML = "&#10005;"; // Cross symbol (X)
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "10px";
+    closeButton.style.right = "10px";
+    closeButton.style.backgroundColor = "rgba(0, 0, 0, 0.35)";
+    closeButton.style.color = "white";
+    closeButton.style.padding = "3px";
+    closeButton.style.cursor = "pointer";
+    closeButton.style.zIndex = "10"; // Ensure the close button is above the image
+
+    // Add click event to close button
+    closeButton.addEventListener("click", function () {
+      parentNode.style.display = "none"; // Hide the ad and image when close button is clicked
+    });
+
+    const imageWrapper = document.createElement("div");
+    imageWrapper.style.position = "relative";
+    imageWrapper.style.width = `${imgWidth}px`;
+    imageWrapper.style.height = `${imgHeight}px`;
+    imageWrapper.style.maxHeight = `${newImg.naturalHeight}px`;
+    imageWrapper.style.maxWidth = `${newImg.naturalWidth}px`;
+    imageWrapper.style.margin = "0 auto";
+    imageWrapper.appendChild(newImg);
+    imageWrapper.appendChild(closeButton);
+
+    // Adjust the image size after loading
     newImg.onload = function () {
       const naturalHeight = newImg.naturalHeight;
       const naturalWidth = newImg.naturalWidth;
 
-      // Adjust maxHeight and maxWidth
       newImg.style.maxHeight = `${Math.min(naturalHeight, parentHeight)}px`;
       newImg.style.maxWidth = `${Math.min(naturalWidth, parentWidth)}px`;
 
       newImg.style.overflow = "hidden";
     };
 
-    parentNode.appendChild(newImg);
+    // Append the image and close button to the parent node
+    parentNode.appendChild(imageWrapper);
+    // parentNode.appendChild(closeButton);
     ad.remove();
   }
 }
