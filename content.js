@@ -22,6 +22,7 @@ const adSelectors = [
   "ins.adsbygoogle",
   "div.adsbygoogle",
   'div[id*="yandex"]',
+  'div[id*="yandex_rtb*"]',
   'div[id*="div-gpt-ad"]',
   "div.promo-block",
   "iframe[src*='mobtrafmag']",
@@ -172,7 +173,6 @@ function replaceAd(ad, setName) {
 
     imageWrapper.appendChild(closeButton);
 
-    // Adjust the image size after loading
     newImg.onload = function () {
       const naturalHeight = newImg.naturalHeight;
       const naturalWidth = newImg.naturalWidth;
