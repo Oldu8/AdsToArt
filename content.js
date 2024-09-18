@@ -35,6 +35,7 @@ const adSelectors = [
   "div[id*='div-mps-ad*']",
   "[data-google-query-id]",
   "div[data-name='ad wrapper']",
+  "div[data-bidder='direct']",
   "div[data-name='adWrapper']",
   "div[data-name='adaptiveConstructorAd']",
   "div[data-ad-id]",
@@ -160,9 +161,6 @@ function replaceAd(ad, setName) {
     closeButton.style.zIndex = "10"; // Ensure the close button is above the image
 
     // Add click event to close button
-    closeButton.addEventListener("click", function () {
-      parentNode.style.display = "none"; // Hide the ad and image when close button is clicked
-    });
 
     const imageWrapper = document.createElement("div");
     imageWrapper.style.position = "relative";
@@ -175,6 +173,13 @@ function replaceAd(ad, setName) {
     imageWrapper.appendChild(newImg);
 
     imageWrapper.appendChild(closeButton);
+    closeButton.addEventListener("click", function () {
+      if (parentNode.tagName === "BODY") {
+        imageWrapper.style.display = "none"; // Hide the ad and image when close button is clicked
+      } else {
+        parentNode.style.display = "none"; // Hide the ad and image when close button is clicked
+      }
+    });
 
     newImg.onload = function () {
       const naturalHeight = newImg.naturalHeight;
