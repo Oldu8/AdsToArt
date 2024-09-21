@@ -30,6 +30,7 @@
         "images/set_pixel/*",
         "images/set_painting/*",
         "images/set_movies/*",
+        "images/set_cats/*",
         "images/set_city/*"
       ],
       "matches": ["<all_urls>"]
