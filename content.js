@@ -12,6 +12,8 @@ const adSelectors = [
   ".trc-content-sponsored",
   "._cm-native-ad",
   ".content-ad-block",
+  ".adv",
+  ".ads",
   ".trc-content-sponsored",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
@@ -42,12 +44,14 @@ const adSelectors = [
   "div[data-confiant-id='CONFIANT_AD*']",
   "aside[aria-label='advertisement']",
   "a[href*='redirect.trackerado.com'] .thumbBlock",
+  "a[href*='smartadserver']",
   "a[rel*='sponsored'] .thumbBlock",
   "iframe[src*='ads']",
   "img[src*='cummerata.link*']",
   "img[src*='oritoee*']",
   "img[alt='ads']",
   "img[alt='Advertisement']",
+  "article[class='Advertisement']",
   "div[data-name='adaptiveConstructorAd']",
 ];
 
