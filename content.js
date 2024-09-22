@@ -13,7 +13,8 @@ const adSelectors = [
   "._cm-native-ad",
   ".content-ad-block",
   ".adv",
-  ".ads",
+  ".ad-header",
+  ".ad--inview",
   ".trc-content-sponsored",
   "[data-ad-client]",
   "iframe[src*='adtelligent.com']",
@@ -21,6 +22,7 @@ const adSelectors = [
   'iframe[id*="google_ad"]',
   'iframe[id*="aswift_"]',
   'iframe[id*="phathome_"]',
+  'iframe[id*="ad_iframe"]',
   'iframe[title*="advertisement"]',
   'iframe[name*="aswift"]',
   "ins.adsbygoogle",
@@ -45,6 +47,7 @@ const adSelectors = [
   "aside[aria-label='advertisement']",
   "a[href*='redirect.trackerado.com'] .thumbBlock",
   "a[href*='smartadserver']",
+  "a[id*='aw0']",
   "a[rel*='sponsored'] .thumbBlock",
   "iframe[src*='ads']",
   "img[src*='cummerata.link*']",
@@ -53,6 +56,7 @@ const adSelectors = [
   "img[alt='Advertisement']",
   "article[class='Advertisement']",
   "div[data-name='adaptiveConstructorAd']",
+  "div[data-google-query-id='']",
 ];
 
 function replaceAdsInShadowDOM(root, setName) {
