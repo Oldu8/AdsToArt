@@ -7,8 +7,25 @@ body {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 10px;
   box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .container {
@@ -20,7 +37,7 @@ body {
     rgb(194, 194, 194) 90%
   );
   background-size: 20px 20px; /* Adjust size to control the spacing */
-  padding: 10px;
+  padding: 0 16px;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 0 10px rgb(31, 46, 53, 0.1);
