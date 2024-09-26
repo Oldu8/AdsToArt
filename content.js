@@ -84,7 +84,7 @@ const imageMap = {
 };
 
 function getUrlForImage(name, setName) {
-  console.log(name, setName);
+  // console.log(name, setName);
   const url = `images/${setName}/${name}.png`;
   return chrome.runtime.getURL(url);
 }
@@ -116,13 +116,24 @@ function getRatio(width, height) {
   return "default";
 }
 
+function getRandomImageName(baseName, count) {
+  const randomIndex = Math.floor(Math.random() * count) + 1;
+  return `${baseName}_${randomIndex}`;
+}
+
 function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   if (parentNode) {
     const adWidth = ad.offsetWidth;
     const adHeight = ad.offsetHeight;
     // console.log(adWidth, adHeight);
-    const name = getRatio(adWidth, adHeight);
+    let name = getRatio(adWidth, adHeight);
+
+    // this setup should be splitted to rest of images, but not today lol
+    if (name === "default") {
+      name = getRandomImageName(name, 4);
+    }
+    console.log(name);
     // Get parent dimensions
     const parentWidth = parentNode.offsetWidth;
     const parentHeight = parentNode.offsetHeight;
