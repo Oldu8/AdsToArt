@@ -1,3 +1,4 @@
+// move to single file as statically imported
 const adSelectors = [
   "img[src*='googlesyndication.com']",
   "iframe[src*='googlesyndication.com']",
@@ -60,6 +61,7 @@ const adSelectors = [
   "div[data-google-query-id='']",
 ];
 
+// move to function file
 function replaceAdsInShadowDOM(root, setName) {
   const shadowAdSelectors = adSelectors.join(", ");
   const adsInShadow = root.querySelectorAll(shadowAdSelectors);
@@ -67,6 +69,7 @@ function replaceAdsInShadowDOM(root, setName) {
   adsInShadow.forEach((ad) => replaceAd(ad, setName));
 }
 
+// move to single file as statically imported
 const imageMap = {
   ratio_1_1: chrome.runtime.getURL("images/square.png"),
   ratio_4_3: chrome.runtime.getURL("images/rectangle.png"),
@@ -83,12 +86,14 @@ const imageMap = {
   default: chrome.runtime.getURL("images/default.png"),
 };
 
+// move to function file
 function getUrlForImage(name, setName) {
   // console.log(name, setName);
   const url = `images/${setName}/${name}.png`;
   return chrome.runtime.getURL(url);
 }
 
+// move to function file
 function getRatio(width, height) {
   const ratio = width / height;
 
@@ -116,11 +121,13 @@ function getRatio(width, height) {
   return "default";
 }
 
+// move to function file
 function getRandomImageName(baseName, count) {
   const randomIndex = Math.floor(Math.random() * count) + 1;
   return `${baseName}_${randomIndex}`;
 }
 
+// move to function file
 function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   if (parentNode) {
@@ -218,15 +225,18 @@ function replaceAd(ad, setName) {
   }
 }
 
+// move to function file
 function findAds() {
   return document.querySelectorAll(adSelectors.join(", "));
 }
 
+// move to function file
 function findAndReplaceAds(setName) {
   const ads = findAds();
   ads.forEach((i) => replaceAd(i, setName));
 }
 
+// leave it here
 function observeAds(setName) {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -258,6 +268,7 @@ function observeAds(setName) {
   findAndReplaceAds(setName);
 }
 
+/// leave it here
 chrome.storage.sync.get(["enabled"], (result) => {
   if (result.enabled) {
     chrome.storage.sync.get(["selectedSet"], (res) => {
