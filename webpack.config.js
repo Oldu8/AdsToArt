@@ -2,10 +2,10 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin"); // Import the plugin
 
 module.exports = {
-  entry: "./src/content.js", // Your main JS file
+  entry: "./src/content.js",
   output: {
-    filename: "content.bundle.js", // Output bundle after build
-    path: path.resolve(__dirname, "build"), // Directory for the final build
+    filename: "content.bundle.js",
+    path: path.resolve(__dirname, "build"),
   },
   module: {
     rules: [
@@ -13,23 +13,23 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader", // Use Babel to transpile modern JavaScript
+          loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"], // Ensure ES6+ compatibility
+            presets: ["@babel/preset-env"],
           },
         },
       },
     ],
   },
   plugins: [
-    // Copy specific files to the build folder
     new CopyWebpackPlugin({
       patterns: [
-        { from: "src/popup.js", to: "popup.js" }, // Copy popup.js to build folder
-        { from: "src/index.css", to: "index.css" }, // Copy index.css to build folder
-        { from: "src/popup.html", to: "popup.html" }, // Copy popup.html to build folder
+        { from: "src/popup/popup.js", to: "popup/popup.js" },
+        { from: "src/background.js", to: "background.js" },
+        { from: "src/popup/index.css", to: "popup/index.css" },
+        { from: "src/popup/popup.html", to: "popup/popup.html" },
       ],
     }),
   ],
-  mode: "production", // You can also use 'development' during development
+  mode: "production",
 };

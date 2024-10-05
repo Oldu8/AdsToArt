@@ -1,0 +1,231 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.container {
+  background-color: #f4f7fa; /* Light gray background */
+  /* background-color: #cddf90; Light gray background */
+  background-image: radial-gradient(
+    circle at 20% 20%,
+    #f4f7fa 90%,
+    rgb(194, 194, 194) 90%
+  );
+  background-size: 20px 20px; /* Adjust size to control the spacing */
+  padding: 0 16px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgb(31, 46, 53, 0.1);
+  text-align: center;
+  min-width: 300px;
+  /* min-height: 400px; */
+}
+
+h1 {
+  color: #1f2e35;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #1f2e35;
+  border-bottom: 1px solid #1f2e35;
+}
+
+.toggle-label {
+  margin-right: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1f2e35;
+}
+
+/* iPhone toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #3a6ea5;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.description {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #1f2e35;
+  text-align: justify;
+}
+
+.image-set-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
+  column-gap: 45px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.image-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.image-option input[type="radio"] {
+  display: none;
+}
+
+.image-option img {
+  width: 100px;
+  height: 100px;
+  height: auto;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.image-option input[type="radio"]:checked + img {
+  border-color: rgb(58, 110, 165); /* Highlight color */
+  box-shadow: 1px 1px 15px rgba(71, 154, 243, 0.6),
+    0 0 10px rgba(58, 110, 165, 0.4); /* Softer shadow */
+  border-radius: 8px; /* Optional: Adds a border radius for a modern look */
+  transform: scale(1.05); /* Slightly enlarge the selected image */
+  transition: all 0.3s ease-in-out; /* Smooth transition for all effects */
+}
+
+.image-option img:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+  transform: scale(1.02); /* Slight scaling on hover */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  transition: all 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+.image-option input[type="radio"]:checked + img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgba(71, 154, 243, 0.6); /* Glow or outline */
+  border-radius: 10px;
+  pointer-events: none; /* Ensures no interference with clickability */
+}
+
+.image-option input[type="radio"]:checked + img {
+  background-color: rgba(253, 190, 1, 0.3); /* Subtle background color */
+}
+
+.image-option span {
+  margin-top: 6px;
+}
+
+.set-title {
+  margin-top: 8px;
+  font-size: 18px;
+  color: #1f2e35;
+}
+
+.set-container {
+  margin-top: 8px;
+  /* border-top: 1px solid #3a6ea5; */
+  padding-top: 8px;
+}
+
+.donation-block {
+  margin-top: 8px;
+  border-top: 1px solid #3a6ea5;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.donation-notice {
+  font-size: 10px;
+  color: #1f2e35;
+}
+
+.donation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  gap: 4px;
+}
+
+.donation-title {
+  margin: 0;
+  font-size: 12px;
+  color: #1f2e35;
+}
