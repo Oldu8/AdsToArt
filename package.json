@@ -4,8 +4,9 @@
   "description": "Extension for Google Chrome to replace ads with custom images",
   "main": "content.js",
   "scripts": {
-    "test": "build",
-    "build": "webpack"
+    "build": "webpack",
+    "build:prod": "webpack --mode production",
+    "build:dev": "webpack --mode development"
   },
   "keywords": [
     "adstoard",

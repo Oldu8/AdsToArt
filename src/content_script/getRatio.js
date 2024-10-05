@@ -25,18 +25,18 @@ export function getRatio(width, height) {
   return "default";
 }
 
-export const imageMap = {
-  ratio_1_1: chrome.runtime.getURL("images/square.png"),
-  ratio_4_3: chrome.runtime.getURL("images/rectangle.png"),
-  ratio_16_9: chrome.runtime.getURL("images/wide.png"),
-  ratio_1_3: chrome.runtime.getURL("images/skyscraper.png"),
-  ratio_4_1: chrome.runtime.getURL("images/leaderboard.png"),
-  ratio_8_1: chrome.runtime.getURL("images/leaderboard.png"),
-  ratio_10_1: chrome.runtime.getURL("images/leaderboard.png"),
-  ratio_3_2: chrome.runtime.getURL("images/rectangle.png"),
-  ratio_2_3: chrome.runtime.getURL("images/rectangle.png"),
-  half_page: chrome.runtime.getURL("images/half.png"),
-  ratio_2_1: chrome.runtime.getURL("images/wide.png"),
-  ratio_3_1: chrome.runtime.getURL("images/leaderboard.png"),
-  default: chrome.runtime.getURL("images/default.png"),
-};
+// export const imageMap = {
+//   ratio_1_1: chrome.runtime.getURL("images/square.png"),
+//   ratio_4_3: chrome.runtime.getURL("images/rectangle.png"),
+//   ratio_16_9: chrome.runtime.getURL("images/wide.png"),
+//   ratio_1_3: chrome.runtime.getURL("images/skyscraper.png"),
+//   ratio_4_1: chrome.runtime.getURL("images/leaderboard.png"),
+//   ratio_8_1: chrome.runtime.getURL("images/leaderboard.png"),
+//   ratio_10_1: chrome.runtime.getURL("images/leaderboard.png"),
+//   ratio_3_2: chrome.runtime.getURL("images/rectangle.png"),
+//   ratio_2_3: chrome.runtime.getURL("images/rectangle.png"),
+//   half_page: chrome.runtime.getURL("images/half.png"),
+//   ratio_2_1: chrome.runtime.getURL("images/wide.png"),
+//   ratio_3_1: chrome.runtime.getURL("images/leaderboard.png"),
+//   default: chrome.runtime.getURL("images/default.png"),
+// };
