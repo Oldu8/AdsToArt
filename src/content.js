@@ -1,6 +1,6 @@
-import { adSelectors } from "./selectors.js";
-import { replaceAd } from "./replaceAd.js";
-import { replaceAdsInShadowDOM } from "./functions.js";
+import { adSelectors } from "./content_script/selectors.js";
+import { replaceAd } from "./content_script/replaceAd.js";
+import { replaceAdsInShadowDOM } from "./content_script/functions.js";
 
 function findAds() {
   return document.querySelectorAll(adSelectors.join(", "));
