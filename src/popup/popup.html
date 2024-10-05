@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AdsToArt</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AdsToArt</h1>
+      <div>
+        <p class="description">
+          AdsToArt is the simple extension that swaps ads with images from set
+          that you choose.
+          <br /><br />
+          Firstly, ensure that you enable the extension and select the image
+          set.
+        </p>
+      </div>
+      <div class="toggle-container">
+        <span class="toggle-label">Enable Ads Swap</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="set-container">
+        <label class="set-title">Select the image set:</label>
+        <div class="image-set-options">
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_space" checked />
+            <img src="../../images/set_space/thumbnail.png" alt="Space Set" />
+            <span>Space and Astronomy</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_flower" />
+            <img
+              src="../../images/set_flower/thumbnail.png"
+              alt="Flowers Set"
+            />
+            <span>Dark and Flowers</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_retro" />
+            <img src="../../images/set_retro/thumbnail.png" alt="Vintage Set" />
+            <span>Retro and Vintage</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_city" />
+            <img
+              src="../../images/set_city/thumbnail.png"
+              alt="Night City Set"
+            />
+            <span>Night City</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_pixel" />
+            <img
+              src="../../images/set_pixel/thumbnail.png"
+              alt="Pixel Art Set"
+            />
+            <span>Pixel Art</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_painting" />
+            <img
+              src="../../images/set_painting/thumbnail.png"
+              alt="Painting Art Set"
+            />
+            <span>Famous Paintings</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_movies" />
+            <img src="../../images/set_movies/thumbnail.png" alt="Movies Set" />
+            <span>Movie Posters</span>
+          </label>
+          <label class="image-option">
+            <input type="radio" name="image-set" value="set_cats" />
+            <img src="../../images/set_cats/thumbnail.png" alt="Cats Set" />
+            <span>Funny cats</span>
+          </label>
+        </div>
+      </div>
+      <div class="donation-block">
+        <p class="donation-title">Support developers:</p>
+        <div class="donation-item">
+          <a href="https://donatello.to/oldu8" target="_blank"> Donatello </a>
+          <span class="donation-notice"> for UAH, USDT, EUR </span>
+        </div>
+      </div>
+      <script src="./popup.js"></script>
+    </div>
+  </body>
+</html>
