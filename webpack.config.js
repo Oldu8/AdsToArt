@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "./src/content.js", // Your main JS file
   output: {
-    filename: "content.bundle.js", // Output bundle after build
+    filename: "content.js", // Output bundle after build
     path: path.resolve(__dirname, "build"), // Directory for the final build
   },
   module: {
