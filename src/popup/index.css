@@ -1,5 +1,12 @@
+@font-face {
+  font-family: "LoraFont";
+  src: url("../fonts/Lora-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: LoraFont, sans-serif;
   background-color: #f4f7fa;
   display: flex;
   justify-content: center;
@@ -242,7 +249,8 @@ input:checked + .slider:before {
 
 .set-title {
   margin-top: 8px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: bold;
   color: #1f2e35;
 }
 
