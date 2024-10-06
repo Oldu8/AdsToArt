@@ -1,5 +1,12 @@
+@font-face {
+  font-family: "LoraFont";
+  src: url("../fonts/Lora-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: LoraFont, sans-serif;
   background-color: #f4f7fa;
   display: flex;
   justify-content: center;
@@ -32,7 +39,7 @@ body {
   background-color: #f4f7fa; /* Light gray background */
   /* background-color: #cddf90; Light gray background */
   background-image: radial-gradient(
-    circle at 20% 20%,
+    circle at 10% 10%,
     #f4f7fa 90%,
     rgb(194, 194, 194) 90%
   );
@@ -46,10 +53,69 @@ body {
   /* min-height: 400px; */
 }
 
-h1 {
+/* header */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-wrapper img {
+  width: 36px;
+  height: 36px;
+}
+
+.info-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.info-icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.info-icon:hover {
+  cursor: pointer;
+}
+
+h2 {
   color: #1f2e35;
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #cee6f2;
+  color: #002c54;
+  padding: 8px;
+  border-radius: 4px;
+  width: 280px;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 10;
+  font-size: 14px;
+  text-align: justify;
+}
+
+.tooltip span {
+  font-weight: bold;
+  display: block;
+  text-align: center;
 }
 
 .toggle-container {
@@ -114,13 +180,6 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(20px);
-}
-
-.description {
-  margin-top: 16px;
-  font-size: 14px;
-  color: #1f2e35;
-  text-align: justify;
 }
 
 .image-set-options {
@@ -190,7 +249,8 @@ input:checked + .slider:before {
 
 .set-title {
   margin-top: 8px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: bold;
   color: #1f2e35;
 }
 
