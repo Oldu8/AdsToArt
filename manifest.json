@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AdsToArt",
   "version": "1.0",
-  "description": "Replace ads with a picture.",
+  "description": "This is simple extension that will add fun to your time in internet. You can select one of the images set and enjoy funny and cute images instead of boring ads.",
   "permissions": ["tabs", "storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "build/popup/popup.html"
