@@ -1,18 +1,15 @@
-import { adSelectors } from "./content_script/selectors.js";
+import { adSelectors } from "./content_script/adSelectors.js";
 import { replaceAd } from "./content_script/replaceAd.js";
-import { replaceAdsInShadowDOM } from "./content_script/functions.js";
+import {
+  replaceAdsInShadowDOM,
+  findAndReplaceAds,
+} from "./content_script/functions.js";
+import { WHITELIST } from "./content_script/whiteList.js";
 
-function findAds() {
-  return document.querySelectorAll(adSelectors.join(", "));
+function isWhitelisted(url) {
+  return WHITELIST.some((domain) => url.includes(domain));
 }
 
-// move to function file
-function findAndReplaceAds(setName) {
-  const ads = findAds();
-  ads.forEach((i) => replaceAd(i, setName));
-}
-
-// leave it here
 function observeAds(setName) {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -40,12 +37,16 @@ function observeAds(setName) {
     subtree: true,
   });
 
-  // Initial replacement
   findAndReplaceAds(setName);
 }
 
-/// leave it here
 chrome.storage.sync.get(["enabled"], (result) => {
+  const currentURL = window?.location?.hostname;
+
+  if (isWhitelisted(currentURL)) {
+    return;
+  }
+
   if (result.enabled) {
     chrome.storage.sync.get(["selectedSet"], (res) => {
       observeAds(res.selectedSet);

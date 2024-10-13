@@ -1,4 +1,4 @@
-import { adSelectors } from "./selectors.js";
+import { adSelectors } from "./adSelectors.js";
 import { replaceAd } from "./replaceAd.js";
 
 export function replaceAdsInShadowDOM(root, setName) {
@@ -17,4 +17,14 @@ export function getUrlForImage(name, setName) {
 export function getRandomImageName(baseName, count) {
   const randomIndex = Math.floor(Math.random() * count) + 1;
   return `${baseName}_${randomIndex}`;
+}
+
+function findAds() {
+  return document.querySelectorAll(adSelectors.join(", "));
+}
+
+// move to function file
+export function findAndReplaceAds(setName) {
+  const ads = findAds();
+  ads.forEach((i) => replaceAd(i, setName));
 }
