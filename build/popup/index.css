@@ -20,6 +20,111 @@ body {
   width: 8px;
 }
 
+/* Hide inactive screens */
+.screen {
+  display: none;
+}
+.screen.active {
+  display: block;
+}
+
+/* Tabs */
+
+#tab-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+}
+
+/* .tab.active {
+  color: white;
+  font-weight: bold;
+  border-bottom: 2px solid #007acc;
+} */
+
+/* .tab:not(.active):hover {
+  color: #007acc;
+} */
+
+.tabButton {
+  background-color: white;
+  border: 1px solid #007acc;
+  color: #007acc;
+  width: 100%;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tabButton:hover {
+  border-color: rgb(58, 110, 165);
+  box-shadow: 1px 1px 15px rgba(71, 154, 243, 0.6),
+    0 0 10px rgba(58, 110, 165, 0.4);
+}
+
+.tabButton.active {
+  font-weight: bold;
+  box-shadow: none;
+  background-color: #007acc;
+  color: white;
+}
+
+/* Manual Input Field */
+#manual-input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+#manual-input:focus {
+  border-color: #007acc;
+  outline: none;
+}
+
+/* Whitelist List */
+#whitelist-list {
+  margin-top: 15px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.whitelist-item {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.whitelist-item:last-child {
+  border-bottom: none;
+}
+
+#add-whitelist button {
+  margin-right: 5px;
+}
+
+#add-whitelist {
+  margin-bottom: 10px;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
@@ -212,10 +317,10 @@ input:checked + .slider:before {
 }
 
 .image-option input[type="radio"]:checked + img {
-  border-color: rgb(58, 110, 165); /* Highlight color */
+  border-color: rgb(58, 110, 165);
   box-shadow: 1px 1px 15px rgba(71, 154, 243, 0.6),
-    0 0 10px rgba(58, 110, 165, 0.4); /* Softer shadow */
-  border-radius: 8px; /* Optional: Adds a border radius for a modern look */
+    0 0 10px rgba(58, 110, 165, 0.4);
+  border-radius: 8px;
   transform: scale(1.05); /* Slightly enlarge the selected image */
   transition: all 0.3s ease-in-out; /* Smooth transition for all effects */
 }

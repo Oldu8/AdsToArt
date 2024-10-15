@@ -5,3 +5,4 @@
 
 # needs to hide build folder 
 /build
+/build/popup

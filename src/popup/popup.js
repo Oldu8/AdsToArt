@@ -31,3 +31,24 @@ chrome.storage.sync.get(["enabled", "selectedSet"], (result) => {
 toggle.addEventListener("change", () => {
   chrome.storage.sync.set({ enabled: toggle.checked });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectSetTab = document.getElementById("select-set-tab");
+  const whitelistTab = document.getElementById("whitelist-tab");
+  const selectSetScreen = document.getElementById("select-set-screen");
+  const whitelistScreen = document.getElementById("whitelist-screen");
+
+  selectSetTab.addEventListener("click", () => {
+    selectSetTab.classList.add("active");
+    whitelistTab.classList.remove("active");
+    selectSetScreen.classList.add("active");
+    whitelistScreen.classList.remove("active");
+  });
+
+  whitelistTab.addEventListener("click", () => {
+    whitelistTab.classList.add("active");
+    selectSetTab.classList.remove("active");
+    whitelistScreen.classList.add("active");
+    selectSetScreen.classList.remove("active");
+  });
+});

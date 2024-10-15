@@ -32,68 +32,107 @@
           </div>
         </div>
       </div>
-      <div class="toggle-container">
-        <span class="toggle-label">Replace ads with art?</span>
-        <label class="switch">
-          <input type="checkbox" id="toggle" />
-          <span class="slider"></span>
-        </label>
+      <div id="tab-header">
+        <button id="select-set-tab" class="tab active tabButton">
+          Select Set
+        </button>
+        <button id="whitelist-tab" class="tab tabButton">Whitelist</button>
       </div>
-      <div class="set-container">
-        <label class="set-title">Select the image set:</label>
-        <div class="image-set-options">
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_space" checked />
-            <img src="../../images/set_space/thumbnail.png" alt="Space Set" />
-            <span>Space and Astronomy</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_flower" />
-            <img
-              src="../../images/set_flower/thumbnail.png"
-              alt="Flowers Set"
+      <div id="content">
+        <div id="select-set-screen" class="screen active">
+          <div class="toggle-container">
+            <span class="toggle-label">Replace ads with art?</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="set-container">
+            <label class="set-title">Select the image set:</label>
+            <div class="image-set-options">
+              <label class="image-option">
+                <input
+                  type="radio"
+                  name="image-set"
+                  value="set_space"
+                  checked
+                />
+                <img
+                  src="../../images/set_space/thumbnail.png"
+                  alt="Space Set"
+                />
+                <span>Space and Astronomy</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_flower" />
+                <img
+                  src="../../images/set_flower/thumbnail.png"
+                  alt="Flowers Set"
+                />
+                <span>Dark and Flowers</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_retro" />
+                <img
+                  src="../../images/set_retro/thumbnail.png"
+                  alt="Vintage Set"
+                />
+                <span>Retro and Vintage</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_city" />
+                <img
+                  src="../../images/set_city/thumbnail.png"
+                  alt="Night City Set"
+                />
+                <span>Night City</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_pixel" />
+                <img
+                  src="../../images/set_pixel/thumbnail.png"
+                  alt="Pixel Art Set"
+                />
+                <span>Pixel Art</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_painting" />
+                <img
+                  src="../../images/set_painting/thumbnail.png"
+                  alt="Painting Art Set"
+                />
+                <span>Famous Paintings</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_movies" />
+                <img
+                  src="../../images/set_movies/thumbnail.png"
+                  alt="Movies Set"
+                />
+                <span>Movie Posters</span>
+              </label>
+              <label class="image-option">
+                <input type="radio" name="image-set" value="set_cats" />
+                <img src="../../images/set_cats/thumbnail.png" alt="Cats Set" />
+                <span>Funny cats</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div id="whitelist-screen" class="screen">
+          <div id="add-whitelist">
+            <button id="add-current-tab">Add Current Tab</button>
+            <button id="add-manually">Add Manually</button>
+            <input
+              type="text"
+              id="manual-input"
+              placeholder="Enter website domain"
+              style="display: none"
             />
-            <span>Dark and Flowers</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_retro" />
-            <img src="../../images/set_retro/thumbnail.png" alt="Vintage Set" />
-            <span>Retro and Vintage</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_city" />
-            <img
-              src="../../images/set_city/thumbnail.png"
-              alt="Night City Set"
-            />
-            <span>Night City</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_pixel" />
-            <img
-              src="../../images/set_pixel/thumbnail.png"
-              alt="Pixel Art Set"
-            />
-            <span>Pixel Art</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_painting" />
-            <img
-              src="../../images/set_painting/thumbnail.png"
-              alt="Painting Art Set"
-            />
-            <span>Famous Paintings</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_movies" />
-            <img src="../../images/set_movies/thumbnail.png" alt="Movies Set" />
-            <span>Movie Posters</span>
-          </label>
-          <label class="image-option">
-            <input type="radio" name="image-set" value="set_cats" />
-            <img src="../../images/set_cats/thumbnail.png" alt="Cats Set" />
-            <span>Funny cats</span>
-          </label>
+          </div>
+          <div id="whitelist-list">
+            <!-- List of whitelisted websites will appear here -->
+          </div>
         </div>
       </div>
       <div class="donation-block">
