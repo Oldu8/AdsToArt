@@ -120,18 +120,23 @@
           </div>
         </div>
         <div id="whitelist-screen" class="screen">
-          <div id="add-whitelist">
-            <button id="add-current-tab">Add Current Tab</button>
-            <button id="add-manually">Add Manually</button>
-            <input
-              type="text"
-              id="manual-input"
-              placeholder="Enter website domain"
-              style="display: none"
-            />
+          <div class="toggle-container">
+            <span class="toggle-label">Disable extension for some tab?</span>
           </div>
-          <div id="whitelist-list">
-            <!-- List of whitelisted websites will appear here -->
+          <div class="whitelist-content">
+            <div id="add-whitelist">
+              <button id="add-current-tab">Add Current Tab</button>
+              <button id="add-manually">Add Manually</button>
+              <input
+                type="text"
+                id="manual-input"
+                placeholder="Enter website domain"
+                style="display: none"
+              />
+            </div>
+            <div id="whitelist-list">
+              <!-- List of whitelisted websites will appear here -->
+            </div>
           </div>
         </div>
       </div>
@@ -142,7 +147,8 @@
           <span class="donation-notice"> for UAH, USDT, EUR </span>
         </div>
       </div>
-      <script src="./popup.js"></script>
+      <script type="module" src="popup.js"></script>
+      <script type="module" src="popupWhitelist.js"></script>
     </div>
   </body>
 </html>

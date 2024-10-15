@@ -120,29 +120,40 @@
           </div>
         </div>
         <div id="whitelist-screen" class="screen">
-          <div id="add-whitelist">
-            <button id="add-current-tab">Add Current Tab</button>
-            <button id="add-manually">Add Manually</button>
-            <input
-              type="text"
-              id="manual-input"
-              placeholder="Enter website domain"
-              style="display: none"
-            />
+          <div class="toggle-container">
+            <span class="toggle-label">Disable extension for some tab?</span>
           </div>
-          <div id="whitelist-list">
-            <!-- List of whitelisted websites will appear here -->
+          <div class="whitelist-content">
+            <div id="add-whitelist">
+              <button id="add-current-tab">Add Current Tab</button>
+              <button id="add-manually">Add Manually</button>
+              <input
+                type="text"
+                id="manual-input"
+                placeholder="Enter website domain"
+                style="display: none"
+              />
+            </div>
+            <div class="whitelist-block">
+              <p>List of your whitelisted websites:</p>
+              <div id="whitelist-list">
+                <!-- List of whitelisted websites will appear here -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="donation-block">
-        <p class="donation-title">Support developers:</p>
-        <div class="donation-item">
-          <a href="https://donatello.to/oldu8" target="_blank"> Donatello </a>
-          <span class="donation-notice"> for UAH, USDT, EUR </span>
+      <div class="footer">
+        <div class="donation-block">
+          <p class="donation-title">Support developers:</p>
+          <div class="donation-item">
+            <a href="https://donatello.to/oldu8" target="_blank"> Donatello </a>
+            <span class="donation-notice"> for UAH, USDT, EUR </span>
+          </div>
         </div>
       </div>
-      <script src="./popup.js"></script>
+      <script type="module" src="popup.js"></script>
+      <script type="module" src="popupWhitelist.js"></script>
     </div>
   </body>
 </html>

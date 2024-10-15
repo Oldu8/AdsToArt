@@ -28,6 +28,10 @@ module.exports = (env) => {
       new CopyWebpackPlugin({
         patterns: [
           { from: "src/popup/popup.js", to: "popup/popup.js" },
+          {
+            from: "src/popup/popupWhitelist.js",
+            to: "popup/popupWhitelist.js",
+          },
           { from: "src/background.js", to: "background.js" },
           { from: "src/popup/index.css", to: "popup/index.css" },
           { from: "src/popup/popup.html", to: "popup/popup.html" },
