@@ -70,6 +70,12 @@ body {
   background-color: #007acc;
   color: white;
 }
+/* footer */
+
+.footer {
+  padding: 8px 0;
+  margin-bottom: 8px;
+}
 
 /* Whitelist Screen */
 .whitelist-content {
@@ -110,21 +116,79 @@ body {
 
 .whitelist-item {
   padding: 8px;
+  text-align: start;
   border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.whitelist-add-btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: background-color 0.3s;
+  background-color: #007bff;
+  color: white;
+  margin-right: 10px;
+}
+
+#add-current-tab:hover,
+#add-manually:hover {
+  background-color: #0056b3;
 }
 
 .whitelist-item:last-child {
   border-bottom: none;
 }
 
-#add-whitelist button {
-  margin-right: 5px;
+/* Style for Edit and Remove buttons */
+.whitelist-edit,
+.whitelist-remove {
+  background-color: #6c757d;
+  color: white;
+  font-size: 12px;
+  margin: 0 5px;
+  padding: 4px 10px;
 }
 
-#add-whitelist {
-  margin-bottom: 10px;
+.whitelist-edit:hover {
+  background-color: #5a6268;
 }
 
+.whitelist-remove {
+  background-color: #dc3545;
+}
+
+.whitelist-remove:hover {
+  background-color: #c82333;
+}
+
+/* Specific styles for the whitelist item layout */
+.whitelist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.whitelist-number {
+  font-weight: bold;
+  color: #495057;
+  margin-right: 8px;
+}
+
+.whitelist-domain {
+  flex-grow: 1;
+  color: #343a40;
+}
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
