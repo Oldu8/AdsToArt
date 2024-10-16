@@ -114,17 +114,6 @@ body {
   background-color: #fff;
 }
 
-.whitelist-item {
-  padding: 8px;
-  text-align: start;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .whitelist-add-btn {
   border: none;
   border-radius: 5px;
@@ -143,28 +132,52 @@ body {
 
 .whitelist-item:last-child {
   border-bottom: none;
+  margin-bottom: 8px;
 }
 
+.whitelist-block p {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  margin-top: 8px;
+}
 /* Style for Edit and Remove buttons */
 .whitelist-edit,
 .whitelist-remove {
-  background-color: #00c00a;
-  color: white;
-  font-size: 12px;
-  margin: 0 5px;
-  padding: 4px 10px;
+  background: none;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  border-radius: 6px;
+  transition: color 0.3s;
+}
+
+.whitelist-edit svg,
+.whitelist-remove svg {
+  width: 12px;
+  height: 12px;
+}
+
+.whitelist-edit {
+  background-color: #4cd964;
+  margin-right: 4px;
 }
 
 .whitelist-edit:hover {
-  background-color: #00ff15;
+  background-color: #44bd59;
 }
 
 .whitelist-remove {
-  background-color: #dc3545;
+  background-color: #fb4c2c;
 }
 
 .whitelist-remove:hover {
-  background-color: #c82333;
+  background-color: #e24428;
 }
 
 /* Specific styles for the whitelist item layout */
@@ -189,6 +202,7 @@ body {
   flex-grow: 1;
   color: #343a40;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
