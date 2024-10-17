@@ -4,10 +4,11 @@ import {
   replaceAdsInShadowDOM,
   findAndReplaceAds,
 } from "./content_script/functions.js";
-import { WHITELIST } from "./content_script/whiteList.js";
+import { WHITELIST } from "./content_script/defaultWhiteList.js";
 
 function isWhitelisted(url) {
-  return WHITELIST.some((domain) => url.includes(domain));
+  const defaultWhitelist = WHITELIST.some((domain) => url.includes(domain));
+  return defaultWhitelist;
 }
 
 function observeAds(setName) {
