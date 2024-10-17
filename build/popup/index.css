@@ -87,20 +87,47 @@ body {
 }
 
 /* Manual Input Field */
-#manual-input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.manual-input-container {
+  position: relative;
   display: none;
-  transition: all 0.3s ease;
+  align-items: center;
+  margin-top: 8px;
 }
 
-#manual-input:focus {
-  border-color: #007acc;
-  outline: none;
+#manual-input {
+  padding: 8px 50px 8px 8px;
+  width: 200px;
+  border-radius: 4px;
+}
+
+.input-button {
+  position: absolute;
+  right: 30px; /* Position relative to the input's right edge */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+}
+
+.input-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.clear-button {
+  right: 5px; /* Clear button closer to input right edge */
+}
+
+.submit-button {
+  right: 30px; /* Submit button a bit further from the clear button */
+}
+
+.input-button:hover {
+  color: #007bff; /* Change color on hover */
 }
 
 /* Whitelist List */
@@ -113,17 +140,6 @@ body {
   overflow-y: auto;
   background-color: #fff;
 }
-
-/* .whitelist-item {
-  padding: 8px;
-  text-align: start;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-} */
 
 .whitelist-add-btn {
   border: none;

@@ -131,12 +131,31 @@
               <button id="add-manually" class="whitelist-add-btn">
                 Add Manually
               </button>
-              <input
-                type="text"
-                id="manual-input"
-                placeholder="Enter website domain"
+              <div
+                class="manual-input-container"
+                id="manual-input-container"
                 style="display: none"
-              />
+              >
+                <input
+                  type="text"
+                  id="manual-input"
+                  placeholder="Enter website domain"
+                />
+                <button id="submit-button" class="input-button submit-button">
+                  <image src="../../icons/submit.svg" alt="Submit" />
+                </button>
+                <button
+                  id="clear-button"
+                  class="input-button clear-button"
+                  style="padding: 0"
+                >
+                  <image
+                    src="../../icons/cross.svg"
+                    alt="Clear"
+                    style="width: 20px; height: 20px"
+                  />
+                </button>
+              </div>
             </div>
             <div class="whitelist-block">
               <p>List of your whitelisted websites:</p>

@@ -1,7 +1,10 @@
 const addCurrentTabBtn = document.getElementById("add-current-tab");
 const addManuallyBtn = document.getElementById("add-manually");
 const manualInput = document.getElementById("manual-input");
+const manualInputContainer = document.getElementById("manual-input-container");
 const whitelistList = document.getElementById("whitelist-list");
+const submitButton = document.getElementById("submit-button");
+const clearButton = document.getElementById("clear-button");
 
 // SVG icons as strings
 const pencilIcon = `<svg fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.637 306.637" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M12.809,238.52L0,306.637l68.118-12.809l184.277-184.277l-55.309-55.309L12.809,238.52z M60.79,279.943l-41.992,7.896 l7.896-41.992L197.086,75.455l34.096,34.096L60.79,279.943z"></path> <path d="M251.329,0l-41.507,41.507l55.308,55.308l41.507-41.507L251.329,0z M231.035,41.507l20.294-20.294l34.095,34.095 L265.13,75.602L231.035,41.507z"></path> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g> </g></svg>`;
@@ -10,9 +13,27 @@ const trashIcon = `<svg fill="#000000" height="200px" width="200px" version="1.1
 
 // Toggle manual input display
 addManuallyBtn.addEventListener("click", () => {
-  manualInput.style.display =
-    manualInput.style.display === "none" ? "block" : "none";
+  manualInputContainer.style.display =
+    manualInputContainer.style.display === "none" ? "inline-flex" : "none";
+  addManuallyBtn.innerHTML =
+    manualInputContainer.style.display === "none" ? "Add Manually" : "Close";
+  addManuallyBtn.style.backgroundColor =
+    addManuallyBtn.innerHTML === "Add Manually" ? "#007bff" : "#ddd";
 });
+
+// Function to extract domain and add to whitelist
+function handleSubmit() {
+  if (manualInput.value.trim() !== "") {
+    const domain = getDomainFromUrl(manualInput.value);
+    addToWhitelist(domain);
+    manualInput.value = "";
+  }
+}
+
+// Function to clear input field
+function handleClear() {
+  manualInput.value = "";
+}
 
 // Add current tab's domain to the whitelist
 addCurrentTabBtn.addEventListener("click", () => {
@@ -125,6 +146,9 @@ function removeFromWhitelist(index) {
     chrome.storage.local.set({ whitelist }, displayWhitelist);
   });
 }
+
+submitButton.addEventListener("click", handleSubmit);
+clearButton.addEventListener("click", handleClear);
 
 // Load whitelist on screen load
 document.addEventListener("DOMContentLoaded", displayWhitelist);
