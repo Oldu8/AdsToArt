@@ -6,9 +6,23 @@ import {
 } from "./content_script/functions.js";
 import { WHITELIST } from "./content_script/defaultWhiteList.js";
 
-function isWhitelisted(url) {
+// Convert isWhitelisted to an async function
+async function isWhitelisted(url) {
   const defaultWhitelist = WHITELIST.some((domain) => url.includes(domain));
-  return defaultWhitelist;
+
+  // Return true if domain is in default whitelist
+  if (defaultWhitelist) return true;
+
+  // Check in user-defined whitelist asynchronously
+  const result = await new Promise((resolve) => {
+    chrome.storage.local.get(["whitelist"], (data) => {
+      const whitelist = data.whitelist || [];
+      console.log("Whitelisted websites:", whitelist); // Console log here
+      resolve(whitelist.some((domain) => url.includes(domain)));
+    });
+  });
+
+  return result;
 }
 
 function observeAds(setName) {
@@ -41,11 +55,14 @@ function observeAds(setName) {
   findAndReplaceAds(setName);
 }
 
-chrome.storage.sync.get(["enabled"], (result) => {
+chrome.storage.sync.get(["enabled"], async (result) => {
   const currentURL = window?.location?.hostname;
 
-  if (isWhitelisted(currentURL)) {
-    return;
+  // Await the result of isWhitelisted
+  const whitelisted = await isWhitelisted(currentURL);
+
+  if (whitelisted) {
+    return; // Exit if the site is whitelisted
   }
 
   if (result.enabled) {
