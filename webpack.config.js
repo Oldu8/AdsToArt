@@ -22,6 +22,13 @@ module.exports = (env) => {
             },
           },
         },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext]",
+          },
+        },
       ],
     },
     plugins: [
@@ -35,6 +42,7 @@ module.exports = (env) => {
           { from: "src/background.js", to: "background.js" },
           { from: "src/popup/index.css", to: "popup/index.css" },
           { from: "src/popup/popup.html", to: "popup/popup.html" },
+          { from: "src/fonts", to: "fonts" },
         ],
       }),
     ],

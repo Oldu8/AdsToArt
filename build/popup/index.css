@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: LoraFont, sans-serif;
+  font-family: "LoraFont", sans-serif;
   background-color: #f4f7fa;
   display: flex;
   justify-content: center;
@@ -454,6 +454,14 @@ input:checked + .slider:before {
 }
 
 .image-option span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #1f2e35;
+  text-align: center;
+  box-shadow: 1px 1px 15px rgba(154, 197, 243, 0.6), 0 0 10px #55708d42;
+  background-color: #ecfcffe5;
+  border-radius: 4px;
+  padding: 4px 2px;
   margin-top: 6px;
 }
 
