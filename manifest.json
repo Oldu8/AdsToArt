@@ -3,7 +3,7 @@
   "name": "AdsToArt",
   "version": "1.0",
   "description": "This extension will add fun to your time in internet. You can select one of the images set to replace boring ads with art.",
-  "permissions": ["tabs", "storage", "activeTab", "scripting"],
+  "permissions": ["storage", "activeTab"],
   "action": {
     "default_popup": "build/popup/popup.html"
   },
