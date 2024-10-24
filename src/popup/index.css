@@ -397,7 +397,7 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   row-gap: 25px;
-  column-gap: 45px;
+  column-gap: 40px;
   flex-wrap: wrap;
   margin-top: 12px;
 }
@@ -461,7 +461,7 @@ input:checked + .slider:before {
   box-shadow: 1px 1px 15px rgba(154, 197, 243, 0.6), 0 0 10px #55708d42;
   background-color: #f3fafce5;
   border-radius: 4px;
-  padding: 4px 2px;
+  padding: 6px 4px;
   margin-top: 6px;
 }
 
