@@ -28,6 +28,7 @@ export const adSelectors = [
   "ins.adsbygoogle",
   "div.adsbygoogle",
   'div[id*="yandex"]',
+  'div[id*="google_ad"]',
   'div[id*="sidebar-ad"]',
   'div[id*="yandex_rtb*"]',
   'div[id="yandex_rtb*"]',

@@ -54,8 +54,8 @@ function observeAds(setName) {
 
   findAndReplaceAds(setName);
 }
-
-chrome.storage.sync.get(["enabled"], async (result) => {
+// Content script: Check settings when the page loads
+chrome.storage.sync.get(["enabled", "selectedSet"], async (result) => {
   const currentURL = window?.location?.hostname;
 
   // Await the result of isWhitelisted
@@ -65,9 +65,10 @@ chrome.storage.sync.get(["enabled"], async (result) => {
     return; // Exit if the site is whitelisted
   }
 
-  if (result.enabled) {
-    chrome.storage.sync.get(["selectedSet"], (res) => {
-      observeAds(res.selectedSet);
-    });
+  const isEnabled = result.enabled ?? true;
+  const selectedSet = result.selectedSet || "set_space";
+
+  if (isEnabled) {
+    observeAds(selectedSet); // Your function to start replacing ads
   }
 });
