@@ -26,6 +26,7 @@ async function isWhitelisted(url) {
 }
 
 function observeAds(setName) {
+  console.log("setName:", setName);
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === "childList") {
@@ -68,6 +69,7 @@ chrome.storage.sync.get(["enabled", "selectedSet"], async (result) => {
   const isEnabled = result.enabled ?? true;
   const selectedSet = result.selectedSet || "set_space";
 
+  console.log("Enabled:", isEnabled);
   if (isEnabled) {
     observeAds(selectedSet); // Your function to start replacing ads
   }
