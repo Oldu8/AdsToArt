@@ -67,9 +67,10 @@ chrome.storage.sync.get(["enabled", "selectedSet"], async (result) => {
   }
 
   const isEnabled = result.enabled ?? true;
-  const selectedSet = result.selectedSet || "set_space";
+  const selectedSet = result.selectedSet ?? "set_space";
 
   console.log("Enabled:", isEnabled);
+  console.log("selectedSet", selectedSet);
   if (isEnabled) {
     observeAds(selectedSet); // Your function to start replacing ads
   }
