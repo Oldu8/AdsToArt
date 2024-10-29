@@ -1,8 +1,8 @@
-import { adSelectors } from "./adSelectors.js";
-import { replaceAd } from "./replaceAd.js";
+import { adSelectors } from './adSelectors.js';
+import { replaceAd } from './replaceAd.js';
 
 export function replaceAdsInShadowDOM(root, setName) {
-  const shadowAdSelectors = adSelectors.join(", ");
+  const shadowAdSelectors = adSelectors.join(', ');
   const adsInShadow = root.querySelectorAll(shadowAdSelectors);
 
   adsInShadow.forEach((ad) => replaceAd(ad, setName));
@@ -20,7 +20,7 @@ export function getRandomImageName(baseName, count) {
 }
 
 function findAds() {
-  return document.querySelectorAll(adSelectors.join(", "));
+  return document.querySelectorAll(adSelectors.join(', '));
 }
 
 // move to function file

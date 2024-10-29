@@ -1,10 +1,10 @@
-import { adSelectors } from "./content_script/adSelectors.js";
-import { replaceAd } from "./content_script/replaceAd.js";
+import { adSelectors } from './content_script/adSelectors.js';
+import { replaceAd } from './content_script/replaceAd.js';
 import {
   replaceAdsInShadowDOM,
   findAndReplaceAds,
-} from "./content_script/functions.js";
-import { WHITELIST } from "./content_script/defaultWhiteList.js";
+} from './content_script/functions.js';
+import { WHITELIST } from './content_script/defaultWhiteList.js';
 
 // Convert isWhitelisted to an async function
 async function isWhitelisted(url) {
@@ -15,9 +15,9 @@ async function isWhitelisted(url) {
 
   // Check in user-defined whitelist asynchronously
   const result = await new Promise((resolve) => {
-    chrome.storage.local.get(["whitelist"], (data) => {
+    chrome.storage.local.get(['whitelist'], (data) => {
       const whitelist = data.whitelist || [];
-      console.log("Whitelisted websites:", whitelist); // Console log here
+      console.log('Whitelisted websites:', whitelist); // Console log here
       resolve(whitelist.some((domain) => url.includes(domain)));
     });
   });
@@ -26,10 +26,10 @@ async function isWhitelisted(url) {
 }
 
 function observeAds(setName) {
-  console.log("setName:", setName);
+  console.log('setName:', setName);
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      if (mutation.type === "childList") {
+      if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === 1) {
             adSelectors.forEach((selector) => {
@@ -56,7 +56,7 @@ function observeAds(setName) {
   findAndReplaceAds(setName);
 }
 // Content script: Check settings when the page loads
-chrome.storage.sync.get(["enabled", "selectedSet"], async (result) => {
+chrome.storage.sync.get(['enabled', 'selectedSet'], async (result) => {
   const currentURL = window?.location?.hostname;
 
   // Await the result of isWhitelisted
@@ -67,10 +67,10 @@ chrome.storage.sync.get(["enabled", "selectedSet"], async (result) => {
   }
 
   const isEnabled = result.enabled ?? true;
-  const selectedSet = result.selectedSet ?? "set_space";
+  const selectedSet = result.selectedSet ?? 'set_space';
 
-  console.log("Enabled:", isEnabled);
-  console.log("selectedSet", selectedSet);
+  console.log('Enabled:', isEnabled);
+  console.log('selectedSet', selectedSet);
   if (isEnabled) {
     observeAds(selectedSet); // Your function to start replacing ads
   }
