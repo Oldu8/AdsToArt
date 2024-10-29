@@ -1,1 +1,1 @@
-export const WHITELIST = ["docs.google.com"];
+export const WHITELIST = ["docs.google.com", 'adsmanager.facebook.com'];
