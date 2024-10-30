@@ -1,15 +1,8 @@
 export const adSelectors = [
-  // by data attribute
-  '[data-google-query-id]',
-  '[data-ad-client]',
-  // img tags
-  "img[src*='googlesyndication.com']",
-  "img[src*='trafmag']",
-  "img[src*='cummerata.link*']",
-  "img[src*='googlesyndication*']",
-  "img[src*='oritoee*']",
-  "img[alt='ads']",
-  "img[alt='Advertisement']",
+  // by id
+  '[id^="dclk-studio-creative"]',
+  '[id^="ad_unit"]',
+  '[id^="google_ads_iframe_"]',
   // by class
   '.adsbygoogle',
   '.promotedlink ',
@@ -30,9 +23,18 @@ export const adSelectors = [
   '.ad--inview',
   '.GoogleActiveViewElement',
   '.adv-slot_adtag',
-  // by id
-  '[id^="dclk-studio-creative"]',
-  '[id^="google_ads_iframe_"]',
+  // by data attribute
+  '[data-google-query-id]',
+  '[data-ad-client]',
+  // img tags
+  "img[src*='googlesyndication.com']",
+  "img[src*='trafmag']",
+  "img[src*='cummerata.link*']",
+  "img[src*='googlesyndication*']",
+  "img[src*='oritoee*']",
+  "img[alt='ads']",
+  "img[alt='Advertisement']",
+
   //iframe tags
   "iframe[src*='googlesyndication.com']",
   "iframe[src*='adtelligent.com']",

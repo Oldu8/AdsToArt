@@ -1,13 +1,13 @@
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin"); // Import the plugin
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // Import the plugin
 
 module.exports = (env) => {
   return {
-    mode: env?.mode || "production",
-    entry: "./src/content.js",
+    mode: env?.mode || 'production',
+    entry: './src/content.js',
     output: {
-      filename: "content.bundle.js",
-      path: path.resolve(__dirname, "build"),
+      filename: 'content.bundle.js',
+      path: path.resolve(__dirname, 'build'),
       clean: true,
     },
     module: {
@@ -16,17 +16,17 @@ module.exports = (env) => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ['@babel/preset-env'],
             },
           },
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
-          type: "asset/resource",
+          type: 'asset/resource',
           generator: {
-            filename: "fonts/[name][ext]",
+            filename: 'fonts/[name][ext]',
           },
         },
       ],
@@ -34,15 +34,15 @@ module.exports = (env) => {
     plugins: [
       new CopyWebpackPlugin({
         patterns: [
-          { from: "src/popup/popup.js", to: "popup/popup.js" },
+          { from: 'src/popup/popup.js', to: 'popup/popup.js' },
           {
-            from: "src/popup/popupWhitelist.js",
-            to: "popup/popupWhitelist.js",
+            from: 'src/popup/popupWhitelist.js',
+            to: 'popup/popupWhitelist.js',
           },
-          { from: "src/background.js", to: "background.js" },
-          { from: "src/popup/index.css", to: "popup/index.css" },
-          { from: "src/popup/popup.html", to: "popup/popup.html" },
-          { from: "src/fonts", to: "fonts" },
+          { from: 'src/background.js', to: 'background.js' },
+          { from: 'src/popup/index.css', to: 'popup/index.css' },
+          { from: 'src/popup/popup.html', to: 'popup/popup.html' },
+          { from: 'src/fonts', to: 'fonts' },
         ],
       }),
     ],
