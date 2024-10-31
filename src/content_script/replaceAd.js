@@ -4,16 +4,21 @@ import { getRatio } from './getRatio.js';
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   if (parentNode) {
-    const adWidth = ad.offsetWidth;
-    const adHeight = ad.offsetHeight;
+    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку хуярить
+    const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
+    const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
     let name = getRatio(adWidth, adHeight);
 
     if (name === 'default') {
       name = getRandomImageName(name, 4);
     }
 
-    const parentWidth = parentNode.offsetWidth;
-    const parentHeight = parentNode.offsetHeight;
+    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не одинаково
+    const parentWidth =
+      parentNode.offsetWidth > 970 ? 970 : parentNode.offsetWidth;
+
+    const parentHeight =
+      parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
 
     if (parentWidth < adWidth / 2 || adWidth == 0) {
       console.log('Skipping image replacement due to small size.');
