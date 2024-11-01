@@ -3,7 +3,9 @@ export const adSelectors = [
   '[id^="dclk-studio-creative"]',
   '[id^="ad_unit"]',
   '[id^="google_ads_iframe_"]',
+  '[id^="yandex_rtb]',
   // by class
+  '[class^="AdsBanner-module__item"]',
   '.adsbygoogle',
   '.promotedlink ',
   '.advertisement-block',
@@ -23,9 +25,12 @@ export const adSelectors = [
   '.ad--inview',
   '.GoogleActiveViewElement',
   '.adv-slot_adtag',
+  '.AdsBanner-module',
+  '.SidebarAds_main*',
   // by data attribute
   '[data-google-query-id]',
   '[data-ad-client]',
+  '[data-ad-id]',
   // img tags
   "img[src*='googlesyndication.com']",
   "img[src*='trafmag']",
@@ -65,6 +70,7 @@ export const adSelectors = [
   "div[data-name='data-google-av-adk']",
   "div[data-name='data-google-av-flags']",
   "div[data-name='data-google-query-id']",
+  "div[data-name='adWrapper']",
   'div[data-freestar-ad]',
   "div[data-name='ad wrapper']",
   "div[data-bidder='direct']",
@@ -81,6 +87,8 @@ export const adSelectors = [
   'div[id*="sidebar-ad"]',
   'div[id*="yandex_rtb*"]',
   'div[id="yandex_rtb*"]',
+  'div[class="AdsBanner-module*"]',
+  'div[class="TagAd_main*"]',
   'div[id*="div-gpt-ad"]',
   'div.promo-block',
 ];
