@@ -3,11 +3,12 @@ export const adSelectors = [
   '[id^="dclk-studio-creative"]',
   '[id^="ad_unit"]',
   '[id^="google_ads_iframe_"]',
-  '[id^="yandex_rtb]',
+  '[id^="yandex_rtb"]', // Fixed missing closing quote
+
   // by class
   '[class^="AdsBanner-module__item"]',
   '.adsbygoogle',
-  '.promotedlink ',
+  '.promotedlink',
   '.advertisement-block',
   '.top_banner_yand',
   '.side_banner_yand',
@@ -26,21 +27,23 @@ export const adSelectors = [
   '.GoogleActiveViewElement',
   '.adv-slot_adtag',
   '.AdsBanner-module',
-  '.SidebarAds_main*',
+  '.SidebarAds_main',
+
   // by data attribute
   '[data-google-query-id]',
   '[data-ad-client]',
   '[data-ad-id]',
+
   // img tags
   "img[src*='googlesyndication.com']",
   "img[src*='trafmag']",
-  "img[src*='cummerata.link*']",
-  "img[src*='googlesyndication*']",
-  "img[src*='oritoee*']",
+  "img[src*='cummerata.link']",
+  "img[src*='googlesyndication']",
+  "img[src*='oritoee']",
   "img[alt='ads']",
   "img[alt='Advertisement']",
 
-  //iframe tags
+  // iframe tags
   "iframe[src*='googlesyndication.com']",
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
@@ -52,14 +55,16 @@ export const adSelectors = [
   'iframe[name*="aswift"]',
   "iframe[src*='ads']",
   "iframe[src*='mobtrafmag']",
+
   // a tags
   "a[href*='trafmag.com']",
   "a[href*='redirect.trackerado.com'] .thumbBlock",
   "a[href*='smartadserver']",
   "a[href*='/AVServe/']",
-  "a[href*='*adclick*']",
+  "a[href*='adclick']",
   "a[id*='aw0']",
   "a[rel*='sponsored'] .thumbBlock",
+
   // other tags
   "article[class='Advertisement']",
   "aside[aria-label='advertisement']",
@@ -77,18 +82,17 @@ export const adSelectors = [
   "div[data-name='adWrapper']",
   "div[data-name='adaptiveConstructorAd']",
   'div[data-ad-id]',
-  "div[data-confiant-id='CONFIANT_AD*']",
+  "div[data-confiant-id*='CONFIANT_AD']",
   "div[id*='MarketGid']",
-  "div[id*='div-mps-ad*']",
+  "div[id*='div-mps-ad']",
   'div.adsbygoogle',
   'div[id*="yandex"]',
   'div[id*="google_ad"]',
   'div[id*="_fs-ad-iframe-container"]',
   'div[id*="sidebar-ad"]',
-  'div[id*="yandex_rtb*"]',
-  'div[id="yandex_rtb*"]',
-  'div[class="AdsBanner-module*"]',
-  'div[class="TagAd_main*"]',
+  'div[id^="yandex_rtb"]',
+  'div[class*="AdsBanner-module"]',
+  'div[class*="TagAd_main"]',
   'div[id*="div-gpt-ad"]',
   'div.promo-block',
 ];
