@@ -21,7 +21,10 @@ export function replaceAd(ad, setName) {
       parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
 
     if (parentWidth < adWidth / 2 || adWidth == 0) {
-      console.log('Skipping image replacement due to small size.');
+      console.log('Instead of img should be empty block');
+      const emptyBox = createEmptyBox();
+      parentNode.appendChild(emptyBox);
+      ad.remove();
       return;
     }
 
@@ -38,14 +41,26 @@ export function replaceAd(ad, setName) {
     imageWrapper.style.setProperty('width', 'fit-content', 'important');
     imageWrapper.style.height = `${newImg.style.height}`;
     imageWrapper.style.margin = '0 auto';
+
     imageWrapper.appendChild(newImg);
 
     const closeButton = createCloseButton(parentNode, imageWrapper);
     imageWrapper.appendChild(closeButton);
 
     parentNode.appendChild(imageWrapper);
+    parentNode.style.minHeight = '90px';
+    parentNode.style.minWidth = '90px';
+    parentNode.style.overflow = 'hidden';
     ad.remove();
   }
+}
+
+function createEmptyBox() {
+  const emptyBox = document.createElement('div');
+  emptyBox.style.width = '0';
+  emptyBox.style.height = '0';
+  emptyBox.style.display = 'none';
+  return emptyBox;
 }
 
 function createImageElement(
@@ -71,6 +86,7 @@ function createImageElement(
 
   newImg.style.width = `${imgWidth}px`;
   newImg.style.height = `${imgHeight}px`;
+  newImg.style.minHeight = '90px';
   newImg.style.objectFit = 'contain';
   newImg.style.maxWidth = '100%';
   newImg.style.position = 'relative'; // Ensure proper positioning of the close button

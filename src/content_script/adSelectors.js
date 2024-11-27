@@ -3,7 +3,8 @@ export const adSelectors = [
   '[id^="dclk-studio-creative"]',
   '[id^="ad_unit"]',
   '[id^="google_ads_iframe_"]',
-  '[id^="yandex_rtb"]', // Fixed missing closing quote
+  '[id^="yandex_rtb"]',
+  '[id^="aswift_"]',
 
   // by class
   '[class^="AdsBanner-module__item"]',
@@ -28,6 +29,8 @@ export const adSelectors = [
   '.adv-slot_adtag',
   '.AdsBanner-module',
   '.SidebarAds_main',
+  '.inart-ad',
+  '.needsclick',
 
   // by data attribute
   '[data-google-query-id]',
@@ -45,6 +48,7 @@ export const adSelectors = [
 
   // iframe tags
   "iframe[src*='googlesyndication.com']",
+  "iframe[src*='googleads']",
   "iframe[src*='adtelligent.com']",
   'iframe[id*="google_ads_iframe_"]',
   'iframe[id*="google_ad"]',

@@ -17,7 +17,6 @@ async function isWhitelisted(url) {
   const result = await new Promise((resolve) => {
     chrome.storage.local.get(['whitelist'], (data) => {
       const whitelist = data.whitelist || [];
-      console.log('Whitelisted websites:', whitelist); // Console log here
       resolve(whitelist.some((domain) => url.includes(domain)));
     });
   });
@@ -26,11 +25,11 @@ async function isWhitelisted(url) {
 }
 
 function observeAds(setName) {
-  console.log('setName:', setName);
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
+          // console.log(node);
           if (node.nodeType === 1) {
             adSelectors.forEach((selector) => {
               if (node.matches(selector)) {
@@ -69,8 +68,6 @@ chrome.storage.sync.get(['enabled', 'selectedSet'], async (result) => {
   const isEnabled = result.enabled ?? true;
   const selectedSet = result.selectedSet ?? 'set_space';
 
-  console.log('Enabled:', isEnabled);
-  console.log('selectedSet', selectedSet);
   if (isEnabled) {
     observeAds(selectedSet); // Your function to start replacing ads
   }
