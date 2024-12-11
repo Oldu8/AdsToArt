@@ -1,3 +1,5 @@
+import { getRandomImageName } from './functions.js';
+
 export function getRatio(width, height) {
   const ratio = width / height;
 
@@ -23,4 +25,10 @@ export function getRatio(width, height) {
   // if (Math.abs(ratio - 16 / 9) < 0.05) return "ratio_16_9"; // Widescreen
 
   return 'default';
+}
+
+export function getImageName(width, height) {
+  const ratioImage = getRatio(width, height);
+  const imageName = getRandomImageName(ratioImage, 4);
+  return imageName;
 }

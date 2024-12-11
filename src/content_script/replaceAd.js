@@ -1,5 +1,5 @@
-import { getRandomImageName, getUrlForImage } from './functions.js';
-import { getRatio } from './getRatio.js';
+import { getUrlForImage } from './functions.js';
+import { getImageName } from './getImageName.js';
 
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
@@ -7,11 +7,7 @@ export function replaceAd(ad, setName) {
     // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку хуярить
     const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
     const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
-    let name = getRatio(adWidth, adHeight);
-
-    if (name === 'default') {
-      name = getRandomImageName(name, 4);
-    }
+    const name = getImageName(adWidth, adHeight);
 
     // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не одинаково
     const parentWidth =
