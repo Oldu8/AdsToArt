@@ -14,7 +14,6 @@ export function getUrlForImage(name, setName) {
 
 export function getRandomImageName(baseName, count = 4) {
   const randomIndex = Math.floor(Math.random() * count) + 1;
-  console.log('img number is:', randomIndex);
   return `${baseName}_v${randomIndex}`;
 }
 

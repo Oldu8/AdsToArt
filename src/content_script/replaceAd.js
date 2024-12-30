@@ -4,18 +4,18 @@ import { getImageName } from './getImageName.js';
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   if (parentNode) {
-    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку хуярить
+    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку
     const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
     const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
     const name = getImageName(adWidth, adHeight);
 
-    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не одинаково
     const parentWidth =
       parentNode.offsetWidth > 970 ? 970 : parentNode.offsetWidth;
 
     const parentHeight =
       parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
 
+    // why we use here parentWidth and not adWidth? need to test
     if (parentWidth < adWidth / 2 || adWidth == 0) {
       console.log('Instead of img should be empty block');
       const emptyBox = createEmptyBox();
@@ -46,7 +46,7 @@ export function replaceAd(ad, setName) {
     parentNode.appendChild(imageWrapper);
     parentNode.style.minHeight = '90px';
     parentNode.style.minWidth = '90px';
-    parentNode.style.overflow = 'hidden';
+    // parentNode.style.overflow = 'hidden';
     ad.remove();
   }
 }
@@ -63,9 +63,9 @@ function createImageElement(
   name,
   setName,
   adWidth,
-  adHeight,
-  parentWidth,
-  parentHeight
+  adHeight
+  // parentWidth,
+  // parentHeight
 ) {
   const newImg = document.createElement('img');
   newImg.src = getUrlForImage(name, setName);
@@ -75,25 +75,25 @@ function createImageElement(
   let imgHeight = adHeight > 0 ? adHeight : 250;
 
   // Check if parent is more than twice as large as the image
-  if (parentWidth >= imgWidth * 2 || parentHeight >= imgHeight * 2) {
-    imgWidth = parentWidth;
-    imgHeight = parentHeight;
-  }
+  // if (parentWidth >= imgWidth * 2 || parentHeight >= imgHeight * 2) {
+  //   imgWidth = parentWidth;
+  //   imgHeight = parentHeight;
+  // }
 
   newImg.style.width = `${imgWidth}px`;
   newImg.style.height = `${imgHeight}px`;
   newImg.style.minHeight = '90px';
   newImg.style.objectFit = 'contain';
   newImg.style.maxWidth = '100%';
-  newImg.style.position = 'relative'; // Ensure proper positioning of the close button
+  newImg.style.position = 'relative';
 
   newImg.onload = function () {
-    const naturalHeight = newImg.naturalHeight;
-    const naturalWidth = newImg.naturalWidth;
+    // const naturalHeight = newImg.naturalHeight;
+    // const naturalWidth = newImg.naturalWidth;
 
-    newImg.style.maxHeight = `${Math.min(naturalHeight, parentHeight)}px`;
-    newImg.style.maxWidth = `${Math.min(naturalWidth, parentWidth)}px`;
-
+    newImg.style.maxHeight = `${newImg.naturalHeight}px`;
+    newImg.style.maxWidth = `${newImg.naturalWidth}px`;
+    newImg.style.objectFit = 'contain';
     newImg.style.overflow = 'hidden';
   };
 
