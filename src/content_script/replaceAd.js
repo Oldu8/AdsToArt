@@ -3,7 +3,14 @@ import { getImageName } from './getImageName.js';
 
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
+
   if (parentNode) {
+    // Check if a close sibling node already has a replaced ad
+    if (checkIfCloseNodeReplaced(parentNode, ad)) {
+      console.log('Ad already replaced in a close sibling node. Skipping...');
+      return null;
+    }
+
     // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку
     const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
     const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
@@ -46,9 +53,26 @@ export function replaceAd(ad, setName) {
     parentNode.appendChild(imageWrapper);
     parentNode.style.minHeight = '90px';
     parentNode.style.minWidth = '90px';
-    // parentNode.style.overflow = 'hidden';
     ad.remove();
   }
+}
+
+function checkIfCloseNodeReplaced(parentNode, ad) {
+  // Get all child nodes of the parent
+  const siblings = parentNode.children;
+
+  for (let sibling of siblings) {
+    // Skip the current ad node
+    if (sibling === ad) continue;
+
+    // Check if the sibling contains a replaced ad (e.g., an img element)
+    if (sibling.querySelector('img')) {
+      console.log('Found a sibling node with a replaced ad.');
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function createEmptyBox() {
@@ -59,26 +83,13 @@ function createEmptyBox() {
   return emptyBox;
 }
 
-function createImageElement(
-  name,
-  setName,
-  adWidth,
-  adHeight
-  // parentWidth,
-  // parentHeight
-) {
+function createImageElement(name, setName, adWidth, adHeight) {
   const newImg = document.createElement('img');
   newImg.src = getUrlForImage(name, setName);
   newImg.alt = `${adWidth / adHeight}, ${adWidth}x${adHeight}`;
 
   let imgWidth = adWidth;
   let imgHeight = adHeight > 0 ? adHeight : 250;
-
-  // Check if parent is more than twice as large as the image
-  // if (parentWidth >= imgWidth * 2 || parentHeight >= imgHeight * 2) {
-  //   imgWidth = parentWidth;
-  //   imgHeight = parentHeight;
-  // }
 
   newImg.style.width = `${imgWidth}px`;
   newImg.style.height = `${imgHeight}px`;
@@ -88,9 +99,6 @@ function createImageElement(
   newImg.style.position = 'relative';
 
   newImg.onload = function () {
-    // const naturalHeight = newImg.naturalHeight;
-    // const naturalWidth = newImg.naturalWidth;
-
     newImg.style.maxHeight = `${newImg.naturalHeight}px`;
     newImg.style.maxWidth = `${newImg.naturalWidth}px`;
     newImg.style.objectFit = 'contain';
