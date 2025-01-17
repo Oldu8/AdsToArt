@@ -58,16 +58,37 @@ export function replaceAd(ad, setName) {
 }
 
 function checkIfCloseNodeReplaced(parentNode, ad) {
-  // Get all child nodes of the parent
-  const siblings = parentNode.children;
+  // Helper function to recursively check up to three levels deep
+  function checkNestedNodes(node, depth) {
+    if (depth === 0 || !node) return false;
 
-  for (let sibling of siblings) {
-    // Skip the current ad node
-    if (sibling === ad) continue;
+    const children = node.children;
+    for (let child of children) {
+      // If a node with class 'aa-img' is found, return true
+      if (child.classList.contains('aa-img')) {
+        console.log('Found a node with a replaced ad.');
+        return true;
+      }
 
-    // Check if the sibling contains a replaced ad (e.g., an img element)
-    if (sibling.querySelector('img')) {
-      console.log('Found a sibling node with a replaced ad.');
+      // Recursively check the next level
+      if (checkNestedNodes(child, depth - 1)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Check the current parent's siblings
+  const grandParent = parentNode.parentNode;
+  if (!grandParent) return false;
+
+  const parentSiblings = grandParent.children;
+  for (let sibling of parentSiblings) {
+    // Skip the current parent node
+    if (sibling === parentNode) continue;
+
+    // Check up to three levels deep for a replaced ad
+    if (checkNestedNodes(sibling, 3)) {
       return true;
     }
   }
@@ -97,6 +118,7 @@ function createImageElement(name, setName, adWidth, adHeight) {
   newImg.style.objectFit = 'contain';
   newImg.style.maxWidth = '100%';
   newImg.style.position = 'relative';
+  newImg.classList.add('aa-img');
 
   newImg.onload = function () {
     newImg.style.maxHeight = `${newImg.naturalHeight}px`;
