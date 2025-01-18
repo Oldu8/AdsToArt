@@ -53,6 +53,7 @@ export function replaceAd(ad, setName) {
     parentNode.appendChild(imageWrapper);
     parentNode.style.minHeight = '90px';
     parentNode.style.minWidth = '90px';
+    parentNode.style.height = 'fit-content';
     ad.remove();
   }
 }
@@ -116,7 +117,7 @@ function createImageElement(name, setName, adWidth, adHeight) {
   newImg.style.height = `${imgHeight}px`;
   newImg.style.minHeight = '90px';
   newImg.style.objectFit = 'contain';
-  newImg.style.maxWidth = '100%';
+  // newImg.style.maxWidth = '100%';
   newImg.style.position = 'relative';
   newImg.classList.add('aa-img');
 
