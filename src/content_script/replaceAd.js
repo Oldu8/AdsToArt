@@ -11,7 +11,6 @@ export function replaceAd(ad, setName) {
       return null;
     }
 
-    // TODO: вообще это шляпа. Тут надо посмотреть на их соотношение и выбрать самый подходящий слот, а не под одну гребенку
     const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
     const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
     const name = getImageName(adWidth, adHeight);
@@ -39,23 +38,27 @@ export function replaceAd(ad, setName) {
       parentWidth,
       parentHeight
     );
-    const imageWrapper = document.createElement('div');
-    imageWrapper.style.position = 'relative';
-    imageWrapper.style.setProperty('width', 'fit-content', 'important');
-    imageWrapper.style.height = `${newImg.style.height}`;
-    imageWrapper.style.margin = '0 auto';
-
-    imageWrapper.appendChild(newImg);
-
-    const closeButton = createCloseButton(parentNode, imageWrapper);
-    imageWrapper.appendChild(closeButton);
-
-    parentNode.appendChild(imageWrapper);
-    parentNode.style.minHeight = '90px';
-    parentNode.style.minWidth = '90px';
-    parentNode.style.height = 'fit-content';
+    makeStyles(newImg, parentNode);
     ad.remove();
   }
+}
+
+function makeStyles(newImg, parentNode) {
+  const imageWrapper = document.createElement('div');
+  imageWrapper.style.position = 'relative';
+  imageWrapper.style.setProperty('width', 'fit-content', 'important');
+  imageWrapper.style.height = `${newImg.style.height}`;
+  imageWrapper.style.margin = '0 auto';
+
+  imageWrapper.appendChild(newImg);
+
+  const closeButton = createCloseButton(parentNode, imageWrapper);
+  imageWrapper.appendChild(closeButton);
+
+  parentNode.appendChild(imageWrapper);
+  parentNode.style.minHeight = '90px';
+  parentNode.style.minWidth = '90px';
+  parentNode.style.height = 'fit-content';
 }
 
 function checkIfCloseNodeReplaced(parentNode, ad) {
