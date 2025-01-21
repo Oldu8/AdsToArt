@@ -36,6 +36,7 @@ export const adSelectors = [
   '[data-google-query-id]',
   '[data-ad-client]',
   '[data-ad-id]',
+  '[data-confiant-id*="CONFIANT_AD"]',
 
   // img tags
   "img[src*='googlesyndication.com']",

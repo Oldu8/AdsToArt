@@ -1,13 +1,76 @@
 import { getUrlForImage } from './functions.js';
 import { getImageName } from './getImageName.js';
 
+const replacedNodes = [];
+
+// Получить родителя узла на заданной глубине
+function getAncestorNode(node, depth = 1) {
+  let current = node;
+  for (let i = 0; i < depth; i++) {
+    if (current.parentNode) {
+      current = current.parentNode;
+    } else {
+      break;
+    }
+  }
+  return current;
+}
+
+// Проверить, слишком ли близко узел к уже заменённым
+function isNodeTooClose(newNode, maxDistance = 50) {
+  const newRect = newNode.getBoundingClientRect();
+
+  for (const { rect } of replacedNodes) {
+    // Проверяем горизонтальную и вертикальную близость
+    const dx = Math.abs(
+      rect.left + rect.width / 2 - (newRect.left + newRect.width / 2)
+    );
+    const dy = Math.abs(
+      rect.top + rect.height / 2 - (newRect.top + newRect.height / 2)
+    );
+
+    // Если узлы слишком близко, возвращаем true
+    if (dx < maxDistance && dy < maxDistance) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Проверить, есть ли уже заменённый узел в родителе
+function isParentAlreadyReplaced(newNode, maxDepth = 3) {
+  for (let depth = 1; depth <= maxDepth; depth++) {
+    const ancestor = getAncestorNode(newNode, depth);
+    if (replacedNodes.some(({ node }) => node === ancestor)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Добавить узел в хранилище заменённых
+function addReplacedNode(newNode) {
+  replacedNodes.push({
+    node: newNode,
+    rect: newNode.getBoundingClientRect(),
+  });
+  console.log('Node added to replacedNodes:', newNode);
+}
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
+  console.log(parentNode);
 
   if (parentNode) {
-    // Check if a close sibling node already has a replaced ad
-    if (checkIfCloseNodeReplaced(parentNode, ad)) {
+    if (checkIfCloseNodeReplaced(parentNode)) {
       console.log('Ad already replaced in a close sibling node. Skipping...');
+      return null;
+    }
+
+    if (isParentAlreadyReplaced(ad) || isNodeTooClose(ad)) {
+      console.log(
+        'Ad is too close to an existing replaced node or parent already replaced. Skipping...'
+      );
       return null;
     }
 
@@ -38,17 +101,21 @@ export function replaceAd(ad, setName) {
       parentWidth,
       parentHeight
     );
+
     makeStyles(newImg, parentNode);
+
     ad.remove();
+
+    addReplacedNode(newImg);
   }
 }
-
 function makeStyles(newImg, parentNode) {
   const imageWrapper = document.createElement('div');
   imageWrapper.style.position = 'relative';
   imageWrapper.style.setProperty('width', 'fit-content', 'important');
   imageWrapper.style.height = `${newImg.style.height}`;
   imageWrapper.style.margin = '0 auto';
+  parentNode.dataset.replaced = true; // Отмечаем, что элемент обработан
 
   imageWrapper.appendChild(newImg);
 
@@ -61,40 +128,29 @@ function makeStyles(newImg, parentNode) {
   parentNode.style.height = 'fit-content';
 }
 
-function checkIfCloseNodeReplaced(parentNode, ad) {
-  // Helper function to recursively check up to three levels deep
-  function checkNestedNodes(node, depth) {
-    if (depth === 0 || !node) return false;
+function checkIfCloseNodeReplaced(node) {
+  // Проверяем ближайших соседей
+  const parent = node.parentNode;
 
-    const children = node.children;
-    for (let child of children) {
-      // If a node with class 'aa-img' is found, return true
-      if (child.classList.contains('aa-img')) {
-        console.log('Found a node with a replaced ad.');
-        return true;
-      }
+  if (!parent) return false;
 
-      // Recursively check the next level
-      if (checkNestedNodes(child, depth - 1)) {
-        return true;
-      }
-    }
-    return false;
+  // Получаем всех детей родителя
+  const siblings = Array.from(parent.children);
+  console.log('siblings', siblings);
+
+  // Находим индекс текущего узла
+  const index = siblings.indexOf(node);
+
+  // Проверяем предыдущего и следующего соседа
+  const previous = siblings[index - 1];
+  const next = siblings[index + 1];
+
+  // Проверяем, обработаны ли соседи
+  if (previous && previous.dataset.replaced) {
+    return true; // Предыдущий элемент уже заменён
   }
-
-  // Check the current parent's siblings
-  const grandParent = parentNode.parentNode;
-  if (!grandParent) return false;
-
-  const parentSiblings = grandParent.children;
-  for (let sibling of parentSiblings) {
-    // Skip the current parent node
-    if (sibling === parentNode) continue;
-
-    // Check up to three levels deep for a replaced ad
-    if (checkNestedNodes(sibling, 3)) {
-      return true;
-    }
+  if (next && next.dataset.replaced) {
+    return true; // Следующий элемент уже заменён
   }
 
   return false;
