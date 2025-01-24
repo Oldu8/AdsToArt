@@ -49,6 +49,15 @@ function isParentAlreadyReplaced(newNode, maxDepth = 3) {
   return false;
 }
 
+// Проверить, есть ли уже заменённый узел среди соседей
+function isSiblingAlreadyReplaced(node) {
+  const parent = node.parentNode;
+  if (!parent) return false;
+
+  const siblings = Array.from(parent.children);
+  return siblings.some((sibling) => sibling.dataset.replaced);
+}
+
 // Добавить узел в хранилище заменённых
 function addReplacedNode(newNode) {
   replacedNodes.push({
@@ -57,19 +66,19 @@ function addReplacedNode(newNode) {
   });
   console.log('Node added to replacedNodes:', newNode);
 }
+
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
   console.log(parentNode);
 
   if (parentNode) {
-    if (checkIfCloseNodeReplaced(parentNode)) {
-      console.log('Ad already replaced in a close sibling node. Skipping...');
-      return null;
-    }
-
-    if (isParentAlreadyReplaced(ad) || isNodeTooClose(ad)) {
+    if (
+      isSiblingAlreadyReplaced(ad) ||
+      isParentAlreadyReplaced(ad) ||
+      isNodeTooClose(ad)
+    ) {
       console.log(
-        'Ad is too close to an existing replaced node or parent already replaced. Skipping...'
+        'Ad is too close to an existing replaced node or parent/sibling already replaced. Skipping...'
       );
       return null;
     }
@@ -80,11 +89,9 @@ export function replaceAd(ad, setName) {
 
     const parentWidth =
       parentNode.offsetWidth > 970 ? 970 : parentNode.offsetWidth;
-
     const parentHeight =
       parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
 
-    // why we use here parentWidth and not adWidth? need to test
     if (parentWidth < adWidth / 2 || adWidth == 0) {
       console.log('Instead of img should be empty block');
       const emptyBox = createEmptyBox();
@@ -109,13 +116,14 @@ export function replaceAd(ad, setName) {
     addReplacedNode(newImg);
   }
 }
+
 function makeStyles(newImg, parentNode) {
   const imageWrapper = document.createElement('div');
   imageWrapper.style.position = 'relative';
   imageWrapper.style.setProperty('width', 'fit-content', 'important');
   imageWrapper.style.height = `${newImg.style.height}`;
   imageWrapper.style.margin = '0 auto';
-  parentNode.dataset.replaced = true; // Отмечаем, что элемент обработан
+  imageWrapper.dataset.replaced = true;
 
   imageWrapper.appendChild(newImg);
 
@@ -126,34 +134,6 @@ function makeStyles(newImg, parentNode) {
   parentNode.style.minHeight = '90px';
   parentNode.style.minWidth = '90px';
   parentNode.style.height = 'fit-content';
-}
-
-function checkIfCloseNodeReplaced(node) {
-  // Проверяем ближайших соседей
-  const parent = node.parentNode;
-
-  if (!parent) return false;
-
-  // Получаем всех детей родителя
-  const siblings = Array.from(parent.children);
-  console.log('siblings', siblings);
-
-  // Находим индекс текущего узла
-  const index = siblings.indexOf(node);
-
-  // Проверяем предыдущего и следующего соседа
-  const previous = siblings[index - 1];
-  const next = siblings[index + 1];
-
-  // Проверяем, обработаны ли соседи
-  if (previous && previous.dataset.replaced) {
-    return true; // Предыдущий элемент уже заменён
-  }
-  if (next && next.dataset.replaced) {
-    return true; // Следующий элемент уже заменён
-  }
-
-  return false;
 }
 
 function createEmptyBox() {
@@ -176,7 +156,6 @@ function createImageElement(name, setName, adWidth, adHeight) {
   newImg.style.height = `${imgHeight}px`;
   newImg.style.minHeight = '90px';
   newImg.style.objectFit = 'contain';
-  // newImg.style.maxWidth = '100%';
   newImg.style.position = 'relative';
   newImg.classList.add('aa-img');
 
