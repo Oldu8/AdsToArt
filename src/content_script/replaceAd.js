@@ -69,7 +69,6 @@ function addReplacedNode(newNode) {
 
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
-  console.log(parentNode);
 
   if (parentNode) {
     if (
@@ -93,7 +92,6 @@ export function replaceAd(ad, setName) {
       parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
 
     if (parentWidth < adWidth / 2 || adWidth == 0) {
-      console.log('Instead of img should be empty block');
       const emptyBox = createEmptyBox();
       parentNode.appendChild(emptyBox);
       ad.remove();
