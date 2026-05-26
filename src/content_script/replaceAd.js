@@ -67,52 +67,55 @@ function addReplacedNode(newNode) {
   console.log('Node added to replacedNodes:', newNode);
 }
 
+// Traverse DOM upward to find the nearest ancestor with a non-zero width.
+// Used when the ad element itself has no rendered dimensions (script was blocked).
+function getEffectiveWidth(element) {
+  let node = element.parentNode;
+  while (node && node.tagName !== 'BODY') {
+    if (node.offsetWidth > 0) return Math.min(node.offsetWidth, 970);
+    node = node.parentNode;
+  }
+  return Math.min(window.innerWidth || 0, 970);
+}
+
 export function replaceAd(ad, setName) {
   const parentNode = ad.parentNode;
+  if (!parentNode) return;
 
-  if (parentNode) {
-    if (
-      isSiblingAlreadyReplaced(ad) ||
-      isParentAlreadyReplaced(ad) ||
-      isNodeTooClose(ad)
-    ) {
-      console.log(
-        'Ad is too close to an existing replaced node or parent/sibling already replaced. Skipping...'
-      );
-      return null;
-    }
-
-    const adWidth = ad.offsetWidth > 970 ? 970 : ad.offsetWidth;
-    const adHeight = ad.offsetHeight > 600 ? 600 : ad.offsetHeight;
-    const name = getImageName(adWidth, adHeight);
-
-    const parentWidth =
-      parentNode.offsetWidth > 970 ? 970 : parentNode.offsetWidth;
-    const parentHeight =
-      parentNode.offsetHeight > 600 ? 600 : parentNode.offsetHeight;
-
-    if (parentWidth < adWidth / 2 || adWidth == 0) {
-      const emptyBox = createEmptyBox();
-      parentNode.appendChild(emptyBox);
-      ad.remove();
-      return;
-    }
-
-    const newImg = createImageElement(
-      name,
-      setName,
-      adWidth,
-      adHeight,
-      parentWidth,
-      parentHeight
-    );
-
-    makeStyles(newImg, parentNode);
-
-    ad.remove();
-
-    addReplacedNode(newImg);
+  if (
+    isSiblingAlreadyReplaced(ad) ||
+    isParentAlreadyReplaced(ad) ||
+    isNodeTooClose(ad)
+  ) {
+    return null;
   }
+
+  let adWidth = Math.min(ad.offsetWidth, 970);
+  let adHeight = Math.min(ad.offsetHeight, 600);
+
+  // When ad script was blocked by DNR the element has no rendered dimensions.
+  // Traverse up the DOM to find a usable width.
+  if (adWidth === 0) {
+    adWidth = getEffectiveWidth(ad);
+    // Still nothing — element is truly invisible. Leave it in the DOM
+    // so the delayed retry can pick it up once the layout settles.
+    if (adWidth === 0) return;
+  }
+  if (adHeight === 0) adHeight = 250;
+
+  // If the ad declared a larger width than the container can show,
+  // cap it to the container width instead of skipping entirely.
+  const effectiveParentWidth = getEffectiveWidth(ad);
+  if (effectiveParentWidth > 0 && adWidth > effectiveParentWidth) {
+    adWidth = effectiveParentWidth;
+  }
+
+  const name = getImageName(adWidth, adHeight);
+  const newImg = createImageElement(name, setName, adWidth, adHeight);
+
+  makeStyles(newImg, parentNode);
+  ad.remove();
+  addReplacedNode(newImg);
 }
 
 function makeStyles(newImg, parentNode) {
@@ -151,6 +154,7 @@ function createImageElement(name, setName, adWidth, adHeight) {
   let imgHeight = adHeight > 0 ? adHeight : 250;
 
   newImg.style.width = `${imgWidth}px`;
+  newImg.style.maxWidth = '100%';
   newImg.style.height = `${imgHeight}px`;
   newImg.style.minHeight = '90px';
   newImg.style.objectFit = 'contain';
