@@ -43,6 +43,7 @@ module.exports = (env) => {
           { from: 'src/popup/index.css', to: 'popup/index.css' },
           { from: 'src/popup/popup.html', to: 'popup/popup.html' },
           { from: 'src/fonts', to: 'fonts' },
+          { from: 'src/dnr_rules.json', to: 'dnr_rules.json' },
         ],
       }),
     ],
