@@ -1,19 +1,30 @@
-import { adSelectors } from './content_script/adSelectors.js';
+import { inlineAdSelectors, overlayAdSelectors } from './content_script/adSelectors.js';
 import { replaceAd } from './content_script/replaceAd.js';
+import { hideAd, isModalOrPopup } from './content_script/overlayUtils.js';
 import {
   replaceAdsInShadowDOM,
   findAndReplaceAds,
 } from './content_script/functions.js';
 import { WHITELIST } from './content_script/defaultWhiteList.js';
 
-// Convert isWhitelisted to an async function
+const inlineSelector = inlineAdSelectors.join(', ');
+const overlaySelector = overlayAdSelectors.join(', ');
+
+function processNode(node, setName) {
+  if (node.dataset.aaProcessed) return;
+  node.dataset.aaProcessed = 'true';
+
+  if (overlayAdSelectors.some((sel) => node.matches(sel)) || isModalOrPopup(node)) {
+    hideAd(node);
+  } else {
+    replaceAd(node, setName);
+  }
+}
+
 async function isWhitelisted(url) {
   const defaultWhitelist = WHITELIST.some((domain) => url.includes(domain));
-
-  // Return true if domain is in default whitelist
   if (defaultWhitelist) return true;
 
-  // Check in user-defined whitelist asynchronously
   const result = await new Promise((resolve) => {
     chrome.storage.local.get(['whitelist'], (data) => {
       const whitelist = data.whitelist || [];
@@ -26,24 +37,24 @@ async function isWhitelisted(url) {
 
 function observeAds(setName) {
   const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        mutation.addedNodes.forEach((node) => {
-          // console.log(node);
-          if (node.nodeType === 1) {
-            adSelectors.forEach((selector) => {
-              if (node.matches(selector)) {
-                replaceAd(node, setName);
-              } else if (node.shadowRoot) {
-                replaceAdsInShadowDOM(node.shadowRoot, setName);
-              } else {
-                const nestedAds = node.querySelectorAll(selector);
-                nestedAds.forEach((i) => replaceAd(i, setName));
-              }
-            });
-          }
-        });
-      }
+    mutations.forEach(({ type, addedNodes }) => {
+      if (type !== 'childList') return;
+      addedNodes.forEach((node) => {
+        if (node.nodeType !== 1) return;
+
+        if (node.matches(inlineSelector) || node.matches(overlaySelector)) {
+          processNode(node, setName);
+          return;
+        }
+
+        if (node.shadowRoot) {
+          replaceAdsInShadowDOM(node.shadowRoot, setName);
+          return;
+        }
+
+        node.querySelectorAll(inlineSelector).forEach((el) => replaceAd(el, setName));
+        node.querySelectorAll(overlaySelector).forEach((el) => hideAd(el));
+      });
     });
   });
 
@@ -53,22 +64,26 @@ function observeAds(setName) {
   });
 
   findAndReplaceAds(setName);
+  document.querySelectorAll(overlaySelector).forEach((el) => hideAd(el));
+
+  // Retry after layout settles — catches elements that had no dimensions
+  // at initial scan time (ad script blocked, lazy rendering, etc.)
+  setTimeout(() => {
+    findAndReplaceAds(setName);
+    document.querySelectorAll(overlaySelector).forEach((el) => hideAd(el));
+  }, 1500);
 }
-// Content script: Check settings when the page loads
+
 chrome.storage.sync.get(['enabled', 'selectedSet'], async (result) => {
   const currentURL = window?.location?.hostname;
-
-  // Await the result of isWhitelisted
   const whitelisted = await isWhitelisted(currentURL);
 
-  if (whitelisted) {
-    return; // Exit if the site is whitelisted
-  }
+  if (whitelisted) return;
 
   const isEnabled = result.enabled ?? true;
   const selectedSet = result.selectedSet ?? 'set_space';
 
   if (isEnabled) {
-    observeAds(selectedSet); // Your function to start replacing ads
+    observeAds(selectedSet);
   }
 });

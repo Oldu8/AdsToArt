@@ -1,4 +1,5 @@
-export const adSelectors = [
+// Selectors for inline/flow ads — replaced with artwork images.
+export const inlineAdSelectors = [
   // by id
   '[id^="dclk-studio-creative"]',
   '[id^="ad_unit"]',
@@ -9,16 +10,9 @@ export const adSelectors = [
   // by class
   '[class^="AdsBanner-module__item"]',
   '.adsbygoogle',
-  '.promotedlink',
   '.advertisement-block',
   '.top_banner_yand',
   '.side_banner_yand',
-  '.videoAdUiClickElement',
-  '.cm-vpaid-iframe',
-  '._cm-ad-active',
-  '.trc-content-sponsored',
-  '._cm-native-ad',
-  '.ym-video--player',
   '.content-ad-block',
   '.adv',
   '.ad-header',
@@ -29,8 +23,6 @@ export const adSelectors = [
   '.adv-slot_adtag',
   '.AdsBanner-module',
   '.SidebarAds_main',
-  '.inart-ad',
-  '.needsclick',
 
   // by data attribute
   '[data-google-query-id]',
@@ -68,7 +60,6 @@ export const adSelectors = [
   "a[href*='/AVServe/']",
   "a[href*='adclick']",
   "a[id*='aw0']",
-  "a[rel*='sponsored'] .thumbBlock",
 
   // other tags
   "article[class='Advertisement']",
@@ -84,8 +75,6 @@ export const adSelectors = [
   'div[data-freestar-ad]',
   "div[data-name='ad wrapper']",
   "div[data-bidder='direct']",
-  "div[data-name='adWrapper']",
-  "div[data-name='adaptiveConstructorAd']",
   'div[data-ad-id]',
   "div[data-confiant-id*='CONFIANT_AD']",
   "div[id*='MarketGid']",
@@ -101,6 +90,23 @@ export const adSelectors = [
   'div[id*="div-gpt-ad"]',
   'div.promo-block',
 ];
+
+// Selectors for overlay/modal/popup ads — hidden silently (display:none), no artwork replacement.
+export const overlayAdSelectors = [
+  '.videoAdUiClickElement',
+  '.cm-vpaid-iframe',
+  '._cm-ad-active',
+  '.ym-video--player',
+  '._cm-native-ad',
+  '.trc-content-sponsored',
+  '.inart-ad',
+  '.needsclick',
+  '.promotedlink',
+  "a[rel*='sponsored'] .thumbBlock",
+];
+
+// Combined export kept for backward compatibility (e.g. shadow DOM scan).
+export const adSelectors = [...inlineAdSelectors, ...overlayAdSelectors];
 
 // ^= selects elements with attribute values that start with the specified string.
 // $= selects elements with attribute values that end with the specified string.

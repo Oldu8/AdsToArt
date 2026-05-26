@@ -1,10 +1,10 @@
-import { adSelectors } from './adSelectors.js';
+import { inlineAdSelectors, overlayAdSelectors } from './adSelectors.js';
 import { replaceAd } from './replaceAd.js';
+import { hideAd } from './overlayUtils.js';
 
 export function replaceAdsInShadowDOM(root, setName) {
-  const shadowAdSelectors = adSelectors.join(', ');
-  const adsInShadow = root.querySelectorAll(shadowAdSelectors);
-  adsInShadow.forEach((ad) => replaceAd(ad, setName));
+  root.querySelectorAll(inlineAdSelectors.join(', ')).forEach((ad) => replaceAd(ad, setName));
+  root.querySelectorAll(overlayAdSelectors.join(', ')).forEach((ad) => hideAd(ad));
 }
 
 export function getUrlForImage(name, setName) {
@@ -18,7 +18,7 @@ export function getRandomImageName(baseName, count = 4) {
 }
 
 function findAds() {
-  return document.querySelectorAll(adSelectors.join(', '));
+  return document.querySelectorAll(inlineAdSelectors.join(', '));
 }
 
 // move to function file
